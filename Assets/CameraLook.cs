@@ -7,6 +7,7 @@ public class Look : MonoBehaviour
     float mouseY;
     public float mouseSensitivity = 100f;
     public Transform player;
+    public Transform orientation;
     float xRotation;
 
     void Update()
@@ -30,6 +31,8 @@ public class Look : MonoBehaviour
         player.Rotate((Vector3.up * mouseY) * -1);
         player.Rotate((Vector3.right * mouseX) * -1);
         player.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0f);
+
+        orientation.eulerAngles = new Vector3(0f, player.eulerAngles.y, 0f);
 
 
 
