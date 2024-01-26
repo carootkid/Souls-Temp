@@ -10,9 +10,11 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode backward;
     public KeyCode jump;
     public KeyCode sprint;
+    public KeyCode aim;
     public Rigidbody rb;
     public bool isGrounded;
     public bool sprinting;
+    public bool aiming;
     public LayerMask ground;
     public GroundDetector groundDetectorScript;
     public Transform orientation;
@@ -23,8 +25,31 @@ public class PlayerMovement : MonoBehaviour
     public float walkSpeed = 10f;
     public float sprintSpeed = 20f;
 
+    private float tempSpeed;
+    private float halfSpeed;
+
+    private void Start() {
+        tempSpeed = speed;
+        halfSpeed = speed / 2;
+    }
+
     void Update()
     {
+        if(Input.GetKey(aim)){
+            aiming = true;
+        }
+        else
+        {
+            aiming = false;
+        }
+
+        if(aiming){
+            speed = halfSpeed;
+        } else {
+            speed = tempSpeed;
+        }
+
+
         if(groundDetectorScript.grounded && Input.GetKeyDown(jump)){
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
@@ -47,6 +72,8 @@ public class PlayerMovement : MonoBehaviour
 
         if(Input.GetKey(sprint)){
             sprinting = true;
+        } else {
+            sprinting = false;
         }
     }
 
@@ -58,7 +85,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity.normalized * sprintSpeed;
             } 
-        } else {
+        } 
+        else
+        {
             if(GetComponent<Rigidbody>().velocity.magnitude > walkSpeed)
             {
                 GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity.normalized * walkSpeed;
