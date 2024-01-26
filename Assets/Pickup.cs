@@ -5,65 +5,88 @@ using UnityEngine;
 public class Pickup : MonoBehaviour
 {
     public PlayerMovement playerMovement;
-    
+
     public Transform mainHand;
     public Transform secondHand;
 
     public float pickupRadius;
 
-    private Transform location1;
-    private Transform location2;
-
     private bool switched = false;
 
+    public float switchSpeed = 10f;
 
     void Start()
     {
-        location1 = mainHand;
-        location2 = secondHand;
+
     }
 
     void Update()
     {
-        
-        if(Input.GetKeyDown(playerMovement.pickup)){
+
+        if (Input.GetKeyDown(playerMovement.pickup))
+        {
             PickUp();
         }
 
-        if(Input.GetKeyDown(playerMovement.switchWeapons)){
-            switched = !switched;
-            if(switched){
-                mainHand.position = location1.position;
-                mainHand.rotation = location1.rotation;
+        if (Input.GetKeyDown(playerMovement.switchWeapons))
+        {
+            Transform[] mainHandChildren = mainHand.GetComponentsInChildren<Transform>(true);
+            Transform[] secondHandChildren = secondHand.GetComponentsInChildren<Transform>(true);
 
-                secondHand.position = location2.position;
-                secondHand.rotation = location2.rotation;
-            } else {
-                mainHand.position = location2.position;
-                mainHand.rotation = location2.rotation;
+            foreach (Transform child in mainHandChildren)
+            {
+                if (child.parent == mainHand.transform)
+                {
+                    child.parent = secondHand.transform;
+                    child.localPosition = Vector3.zero;
+                    child.localEulerAngles = Vector3.zero;
+                }
+            }
 
-                secondHand.position = location1.position;
-                secondHand.rotation = location1.rotation;
+            foreach (Transform child in secondHandChildren)
+            {
+                if (child.parent == secondHand.transform)
+                {
+                    child.parent = mainHand.transform;
+                    child.localPosition = Vector3.zero;
+                    child.localEulerAngles = Vector3.zero;
+                }
             }
         }
+
     }
 
-    public void PickUp(){
+    public void PickUp()
+    {
         Collider[] colliders = Physics.OverlapSphere(transform.position, pickupRadius);
+
+        if (mainHand.childCount > 0)
+        {
+            Debug.Log("Main hand is FULL");
+            return;
+        }
+
         foreach (Collider collider in colliders)
         {
-            if (collider.CompareTag("Gun"))
+            if (collider.CompareTag("Gun") || collider.CompareTag("Melee"))
             {
-                Debug.Log("Got Gun");
-            } 
-            else if(collider.CompareTag("Melee"))
-            {
-                Debug.Log("Got Melee");
-            } 
-            else if(collider.CompareTag("Pickup"))
+                Debug.Log("Got " + collider.tag);
+                collider.transform.parent = mainHand;
+                collider.transform.localPosition = Vector3.zero;
+                Rigidbody colliderRigidbody = collider.GetComponent<Rigidbody>();
+                
+                Collider colliderCollider = collider.GetComponent<Collider>();
+                if (colliderRigidbody != null)
+                    colliderRigidbody.isKinematic = true;
+
+                if (colliderCollider != null)
+                    colliderCollider.enabled = false;
+            }
+            else if (collider.CompareTag("Pickup"))
             {
                 Debug.Log("Got Pickup");
             }
         }
+
     }
 }

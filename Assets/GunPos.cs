@@ -55,6 +55,6 @@ public class GunPos : MonoBehaviour
             targetRotation = orientation.rotation;
         }
 
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, lerpSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation.normalized, lerpSpeed * Time.deltaTime);
     }
 }
