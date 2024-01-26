@@ -27,7 +27,8 @@ public class TempEnemy : MonoBehaviour
 
             if (player != null)
             {
-                float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+                float distanceToPlayer = Vector3.Distance(new Vector3(transform.position.x, 0f, transform.position.z),
+                                                          new Vector3(player.transform.position.x, 0f, player.transform.position.z));
 
                 if (distanceToPlayer <= detectionRange)
                 {
@@ -38,8 +39,12 @@ public class TempEnemy : MonoBehaviour
                     }
                     else
                     {
-                        MoveTowardsPlayer(player);
+                        MoveTowardsPlayer(player, distanceToPlayer);
                     }
+                }
+                else
+                {
+                    StopMoving();
                 }
             }
         }
@@ -49,14 +54,26 @@ public class TempEnemy : MonoBehaviour
         }
     }
 
-    void MoveTowardsPlayer(GameObject player)
+            void MoveTowardsPlayer(GameObject player, float distanceToPlayer)
+        {
+            if (distanceToPlayer > attackRange)
+            {
+                Vector3 playerPosition = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
+                Vector3 direction = (playerPosition - transform.position).normalized;
+                transform.Translate(direction * moveSpeed * Time.deltaTime, Space.World);
+                transform.LookAt(playerPosition);
+            }
+        }
+
+    void StopMoving()
     {
-        Vector3 direction = (player.transform.position - transform.position).normalized;
-        transform.Translate(direction * moveSpeed * Time.deltaTime);
+        // Customize this function for idle or other non-movement behavior
     }
 
     void AttackPlayer()
     {
+        transform.LookAt(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z));
+
         PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
 
         if (playerHealth != null)
