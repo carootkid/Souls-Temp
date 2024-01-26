@@ -123,6 +123,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!20 &120469104 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1063988423191330485, guid: b0f86931316fe16479e3cc1cd7253635,
+    type: 3}
+  m_PrefabInstance: {fileID: 6622585899417277228}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &295277411 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8997303381796096893, guid: b0f86931316fe16479e3cc1cd7253635,
@@ -188,7 +194,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0
+  m_Intensity: 0.64
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -376,10 +382,55 @@ PrefabInstance:
       propertyPath: playerMovement
       value: 
       objectReference: {fileID: 295277411}
+    - target: {fileID: 2578807872055339053, guid: b0f86931316fe16479e3cc1cd7253635,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2578807872055339053, guid: b0f86931316fe16479e3cc1cd7253635,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.835
+      objectReference: {fileID: 0}
+    - target: {fileID: 2881010165401765059, guid: b0f86931316fe16479e3cc1cd7253635,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.386
+      objectReference: {fileID: 0}
+    - target: {fileID: 3540638241504786822, guid: b0f86931316fe16479e3cc1cd7253635,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3540638241504786822, guid: b0f86931316fe16479e3cc1cd7253635,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 5094524085122098533, guid: b0f86931316fe16479e3cc1cd7253635,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5094524085122098533, guid: b0f86931316fe16479e3cc1cd7253635,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.125
+      objectReference: {fileID: 0}
     - target: {fileID: 6066233042671310992, guid: b0f86931316fe16479e3cc1cd7253635,
         type: 3}
       propertyPath: m_Name
       value: PlayerContainer
+      objectReference: {fileID: 0}
+    - target: {fileID: 7696131080997756471, guid: b0f86931316fe16479e3cc1cd7253635,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7696131080997756471, guid: b0f86931316fe16479e3cc1cd7253635,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.541
       objectReference: {fileID: 0}
     - target: {fileID: 8893962832254998048, guid: b0f86931316fe16479e3cc1cd7253635,
         type: 3}
@@ -431,6 +482,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8997303381796096893, guid: b0f86931316fe16479e3cc1cd7253635,
+        type: 3}
+      propertyPath: playerCam
+      value: 
+      objectReference: {fileID: 120469104}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

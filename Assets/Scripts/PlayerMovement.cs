@@ -28,9 +28,21 @@ public class PlayerMovement : MonoBehaviour
     private float tempSpeed;
     private float halfSpeed;
 
+    public Camera playerCam;
+
+    private float normalFov;
+    private float halfFov;
+
+    private float cameraLerpSpeed = 15f;
+
+    private float targetFov;
+
     private void Start() {
         tempSpeed = speed;
         halfSpeed = speed / 2;
+
+        normalFov = playerCam.fieldOfView;
+        halfFov = playerCam.fieldOfView / 2;
     }
 
     void Update()
@@ -45,8 +57,10 @@ public class PlayerMovement : MonoBehaviour
 
         if(aiming){
             speed = halfSpeed;
+            targetFov = halfFov;
         } else {
             speed = tempSpeed;
+            targetFov = normalFov;
         }
 
 
@@ -94,5 +108,6 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         
+        playerCam.fieldOfView = Mathf.Lerp(playerCam.fieldOfView, targetFov, cameraLerpSpeed * Time.deltaTime);
     } 
 }
