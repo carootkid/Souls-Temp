@@ -380,15 +380,19 @@ MonoBehaviour:
   left: 97
   backward: 115
   jump: 32
+  sprint: 304
   rb: {fileID: 1255741460}
   isGrounded: 0
+  sprinting: 0
   ground:
     serializedVersion: 2
     m_Bits: 0
   groundDetectorScript: {fileID: 1227566050}
   orientation: {fileID: 1814030351}
   jumpForce: 10
+  speed: 10
   walkSpeed: 10
+  sprintSpeed: 20
 --- !u!54 &1255741460
 Rigidbody:
   m_ObjectHideFlags: 0

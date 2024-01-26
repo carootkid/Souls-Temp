@@ -9,15 +9,19 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode left;
     public KeyCode backward;
     public KeyCode jump;
+    public KeyCode sprint;
     public Rigidbody rb;
     public bool isGrounded;
+    public bool sprinting;
     public LayerMask ground;
     public GroundDetector groundDetectorScript;
     public Transform orientation;
 
     public float jumpForce = 10f;
 
+    public float speed = 10f;
     public float walkSpeed = 10f;
+    public float sprintSpeed = 20f;
 
     void Update()
     {
@@ -26,19 +30,40 @@ public class PlayerMovement : MonoBehaviour
         }
         
         if(Input.GetKey(forward)){
-            rb.AddForce(orientation.forward * walkSpeed);
+            rb.AddForce(orientation.forward * speed);
         }
 
         if(Input.GetKey(right)){
-            rb.AddForce(orientation.right * walkSpeed);
+            rb.AddForce(orientation.right * speed);
         }
 
         if(Input.GetKey(left)){
-            rb.AddForce(orientation.right * (walkSpeed * -1));
+            rb.AddForce(orientation.right * (speed * -1));
         }
 
         if(Input.GetKey(backward)){
-            rb.AddForce(orientation.forward * (walkSpeed * -1));
+            rb.AddForce(orientation.forward * ((speed * -1) * 0.75f));
+        }
+
+        if(Input.GetKey(sprint)){
+            sprinting = true;
         }
     }
+
+    void FixedUpdate() 
+    {
+        if(sprinting)
+        {
+            if(GetComponent<Rigidbody>().velocity.magnitude > sprintSpeed)
+            {
+                GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity.normalized * sprintSpeed;
+            } 
+        } else {
+            if(GetComponent<Rigidbody>().velocity.magnitude > walkSpeed)
+            {
+                GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity.normalized * walkSpeed;
+            }
+        }
+        
+    } 
 }
