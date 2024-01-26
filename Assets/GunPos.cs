@@ -34,7 +34,14 @@ public class GunPos : MonoBehaviour
 
             if (Input.GetKey(playerMovement.backward))
             {
-                rotationY += orientation.eulerAngles.y + 180f;
+                if(Input.GetKey(playerMovement.left)){
+                    rotationY += orientation.eulerAngles.y - 180f;
+                }
+                else
+                {
+                    rotationY += orientation.eulerAngles.y + 180f;
+                }
+                
                 keysPressed++;
             }
 

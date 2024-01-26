@@ -6,7 +6,14 @@ public class Gun : MonoBehaviour
 {
     public Transform aim;
 
+    public PlayerMovement playerMovement;
+
     private void Update() {
-        transform.LookAt(aim);
+        if(playerMovement.aiming){
+            transform.LookAt(aim);
+        } else {
+            transform.localEulerAngles = Vector3.zero;
+        }
+        
     }
 }
