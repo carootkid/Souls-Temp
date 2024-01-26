@@ -5,18 +5,23 @@ public class Look : MonoBehaviour
 {
     float mouseX;
     float mouseY;
-    public float mouseSensitivity = 100f;
-    public Transform player;
+    public float mouseSensitivityX = 100f;
+    public float mouseSensitivityY = 100f;
+    public Transform rotator;
     public Transform orientation;
+    public Transform player;
+    public float cameraSpeed = 10f;
     float xRotation;
 
     void Update()
 
     {
+        
 
-        mouseX = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-        mouseY = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        mouseX = Input.GetAxis("Mouse Y") * mouseSensitivityX * Time.deltaTime;
+
+        mouseY = Input.GetAxis("Mouse X") * mouseSensitivityY * Time.deltaTime;
 
 
 
@@ -28,14 +33,19 @@ public class Look : MonoBehaviour
 
         //transform.localRotation = Quaternion.Euler(xRotation, null, null);
 
-        player.Rotate((Vector3.up * mouseY) * -1);
-        player.Rotate((Vector3.right * mouseX) * -1);
-        player.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0f);
+        rotator.Rotate(Vector3.up * mouseY);
+        rotator.Rotate(Vector3.right * mouseX);
+        rotator.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0f);
 
-        orientation.eulerAngles = new Vector3(0f, player.eulerAngles.y, 0f);
+        orientation.eulerAngles = new Vector3(0f, rotator.eulerAngles.y, 0f);
+
+        
 
 
+    }
 
+    private void FixedUpdate() {
+        transform.position = Vector3.Lerp(transform.position, player.position, Time.deltaTime * cameraSpeed);
     }
 
 }
