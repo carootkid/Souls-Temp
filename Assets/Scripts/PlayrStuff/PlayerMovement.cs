@@ -171,7 +171,16 @@ public class PlayerMovement : MonoBehaviour
             if (GetComponent<Rigidbody>().velocity.magnitude > 0.4f)
             {
                 legs.SetBool("walking", true);
+
+                if(sprinting){
+                    legs.SetBool("running", true);
+                    legs.SetBool("walking", false);
+                } else {
+                    legs.SetBool("running", false);
+                    legs.SetBool("walking", true);
+                }
             } else {
+                legs.SetBool("running", false);
                 legs.SetBool("walking", false);
             }
         } else {

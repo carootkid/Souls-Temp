@@ -1147,7 +1147,7 @@ PrefabInstance:
     - target: {fileID: 4008523998420883406, guid: b0f86931316fe16479e3cc1cd7253635,
         type: 3}
       propertyPath: rollDuration
-      value: 0.6
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4596871876386650159, guid: b0f86931316fe16479e3cc1cd7253635,
         type: 3}
