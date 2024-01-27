@@ -20,42 +20,53 @@ public class Melee : MonoBehaviour
             meleeAnimator.SetBool("spear", true);
         } else if(swordAxeLight)
         {
-            
+            meleeAnimator.SetBool("light", true);
         } else if(swordAxeHeavy)
         {
-            
-        } else if(blunt)
-        {
-            
-        } 
+            meleeAnimator.SetBool("heavy", true);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(spear)
+        // if(spear)
+        // {
+        //     Debug.Log("SPEAR");
+        //     if(Input.GetKeyDown(playerMovement.shoot))
+        //     {
+        //         meleeAnimator.SetBool("Charge", true);
+        //         Debug.Log("Charging..");
+        //     } 
+        //     else if(Input.GetKeyUp(playerMovement.shoot))
+        //     {
+                
+        //         meleeAnimator.SetTrigger("spearAttack");
+        //         meleeAnimator.SetBool("spearCharge", false);
+        //         Debug.Log("attacked");
+        //     }
+        // } else if(swordAxeLight)
+        // {
+        //     Debug.Log("LIGHT SWORD/AXE");
+        // } else if(swordAxeHeavy)
+        // {
+        //     Debug.Log("HEAVY SWORD/AXE");
+        // } else if(blunt)
+        // {
+        //     Debug.Log("BLUNT");
+        // } 
+
+        if(Input.GetKeyDown(playerMovement.shoot))
         {
-            Debug.Log("SPEAR");
-            if(Input.GetKeyDown(playerMovement.shoot))
-            {
-                meleeAnimator.SetBool("spearCharge", true);
-                Debug.Log("Charging..");
-            } 
-            else if(Input.GetKeyUp(playerMovement.shoot))
-            {
-                meleeAnimator.SetBool("spearCharge", false);
-                Debug.Log("attacked");
-            }
-        } else if(swordAxeLight)
-        {
-            Debug.Log("LIGHT SWORD/AXE");
-        } else if(swordAxeHeavy)
-        {
-            Debug.Log("HEAVY SWORD/AXE");
-        } else if(blunt)
-        {
-            Debug.Log("BLUNT");
+            meleeAnimator.SetBool("Charge", true);
+            Debug.Log("Charging..");
         } 
+        else if(Input.GetKeyUp(playerMovement.shoot))
+        {
+            meleeAnimator.SetTrigger("Attack");
+            meleeAnimator.SetBool("Charge", false);
+            Debug.Log("attacked");
+        }
     }
 
     public void EnableCollider(){

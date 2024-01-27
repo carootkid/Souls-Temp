@@ -771,9 +771,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 0}
-  spear: 1
+  spear: 0
   swordAxeLight: 0
-  swordAxeHeavy: 0
+  swordAxeHeavy: 1
   blunt: 0
   attackCollider: {fileID: 1212166913}
   meleeAnimator: {fileID: 1976334717}
