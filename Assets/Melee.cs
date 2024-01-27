@@ -44,7 +44,6 @@ public class Melee : MonoBehaviour
             else if(Input.GetKeyUp(playerMovement.shoot))
             {
                 meleeAnimator.SetBool("spearCharge", false);
-                meleeAnimator.SetTrigger("SpearAttack");
                 Debug.Log("attacked");
             }
         } else if(swordAxeLight)
