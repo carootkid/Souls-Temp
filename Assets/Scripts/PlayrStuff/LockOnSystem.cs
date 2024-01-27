@@ -94,7 +94,7 @@ public class LockOnSystem : MonoBehaviour
         return false;
     }
 
-    void FaceTarget()
+     void FaceTarget()
     {
         Vector3 direction = (currentTarget.position - playerTransform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));

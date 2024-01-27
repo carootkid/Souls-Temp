@@ -53,6 +53,13 @@ public class PlayerMovement : MonoBehaviour
     public Scrollbar StaminaBar;
     private bool canWalkAnimation = true;
 
+    private float regenTimer = 0f;
+    public float regenInterval = 1f;
+
+    private float sprintTimer = 0f;
+    public float sprintInterval = 1f;
+
+
     private void Start()
     {
         tempSpeed = speed;
@@ -61,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
         normalFov = playerCam.fieldOfView;
         halfFov = playerCam.fieldOfView / 2;
 
-        StaminaBar.size = 1f; // Initialize StaminaBar to full
+        StaminaBar.size = 1f; 
     }
 
     void Update()
@@ -134,25 +141,35 @@ public class PlayerMovement : MonoBehaviour
             sprinting = true;
         }
 
-        // Gradual stamina consumption during sprinting
-        if (sprinting && currentStamina >= sprintStaminaCost)
-        {
-            float sprintStaminaConsumption = sprintStaminaCost * Time.deltaTime;
-            currentStamina -= Mathf.CeilToInt(sprintStaminaConsumption);
-        }
-
-        // Stamina regeneration
-        if (!sprinting)
-        {
-            float regenAmount = 5f; // Adjust this value based on your preference
-            currentStamina += Mathf.CeilToInt(regenAmount * Time.deltaTime);
-            currentStamina = Mathf.Clamp(currentStamina, 0, MaxStamina);
-        }
-
-        // Allow sprinting only when the key is held down
         if (!Input.GetKey(sprint) || currentStamina < sprintStaminaCost)
         {
             sprinting = false;
+            sprintTimer = 0f; // Reset sprint timer when not sprinting
+        }
+
+        if (!sprinting)
+        {
+            regenTimer += Time.deltaTime;
+
+            if (regenTimer >= regenInterval)
+            {
+                float regenAmount = 1f; // Adjust this value based on your preference
+                currentStamina += Mathf.CeilToInt(regenAmount);
+                currentStamina = Mathf.Clamp(currentStamina, 0, MaxStamina);
+                regenTimer = 0f;
+            }
+        }
+
+        if (sprinting && currentStamina >= sprintStaminaCost)
+        {
+            sprintTimer += Time.deltaTime;
+
+            if (sprintTimer >= sprintInterval)
+            {
+                float sprintStaminaConsumption = 1f; // Adjust this value based on your preference
+                currentStamina -= Mathf.CeilToInt(sprintStaminaConsumption);
+                sprintTimer = 0f;
+            }
         }
 
         UpdateStaminaBar();
