@@ -1134,6 +1134,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4008523998420883406, guid: b0f86931316fe16479e3cc1cd7253635,
+        type: 3}
+      propertyPath: speed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4008523998420883406, guid: b0f86931316fe16479e3cc1cd7253635,
+        type: 3}
+      propertyPath: walkSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4008523998420883406, guid: b0f86931316fe16479e3cc1cd7253635,
+        type: 3}
+      propertyPath: rollDuration
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 4596871876386650159, guid: b0f86931316fe16479e3cc1cd7253635,
         type: 3}
       propertyPath: m_LocalPosition.x

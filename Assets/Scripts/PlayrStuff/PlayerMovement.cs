@@ -40,6 +40,11 @@ public class PlayerMovement : MonoBehaviour
     private float rollTimer = 3f;
     public Animator legs;
 
+    private bool isForward;
+    private bool isBackward;
+    private bool isRight;
+    private bool isLeft;
+
     private bool canWalkAnimation = true;
 
     private void Start()
@@ -75,29 +80,37 @@ public class PlayerMovement : MonoBehaviour
 
         speed = Mathf.Lerp(speed, targetSpeed, speedChange * Time.deltaTime);
 
-        if (Input.GetKey(rollKey) && !isRolling)
+        if (Input.GetKeyDown(rollKey) && !isRolling)
         {
             StartCoroutine(Roll());
         }
 
         if (Input.GetKey(forward))
         {
-            rb.AddForce(orientation.forward * speed);
+            isForward = true;
+        } else {
+            isForward = false;
         }
 
         if (Input.GetKey(right))
         {
-            rb.AddForce(orientation.right * speed);
+            isRight = true;
+        } else {
+            isRight = false;
         }
 
         if (Input.GetKey(left))
         {
-            rb.AddForce(orientation.right * (speed * -1));
+            isLeft = true;
+        } else {
+            isLeft = false;
         }
 
         if (Input.GetKey(backward))
         {
-            rb.AddForce(orientation.forward * ((speed * -1)));
+            isBackward = true;
+        } else {
+            isBackward = false;
         }
 
         if (Input.GetKey(sprint))
@@ -167,5 +180,21 @@ public class PlayerMovement : MonoBehaviour
         
 
         playerCam.fieldOfView = Mathf.Lerp(playerCam.fieldOfView, aiming ? halfFov : normalFov, speedChange * Time.deltaTime);
+
+        if(isForward){
+            rb.AddForce(orientation.forward * speed);
+        }
+
+        if(isBackward){
+            rb.AddForce(orientation.forward * ((speed * -1)));
+        }
+
+        if(isRight){
+            rb.AddForce(orientation.right * speed);
+        }
+
+        if(isLeft){
+            rb.AddForce(orientation.right * (speed * -1));
+        }
     }
 }
