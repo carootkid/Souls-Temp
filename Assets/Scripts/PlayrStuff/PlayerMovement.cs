@@ -1,6 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -45,6 +45,12 @@ public class PlayerMovement : MonoBehaviour
     private bool isRight;
     private bool isLeft;
 
+    private int MaxStamina = 100;
+    public int currentStamina = 100;
+    public int sprintStaminaCost = 5;
+    public int rollStaminaCost = 25;
+
+    public Scrollbar StaminaBar;
     private bool canWalkAnimation = true;
 
     private void Start()
@@ -54,6 +60,8 @@ public class PlayerMovement : MonoBehaviour
 
         normalFov = playerCam.fieldOfView;
         halfFov = playerCam.fieldOfView / 2;
+
+        StaminaBar.size = 1f; // Initialize StaminaBar to full
     }
 
     void Update()
@@ -76,51 +84,78 @@ public class PlayerMovement : MonoBehaviour
             targetSpeed = tempSpeed;
         }
 
-        
-
         speed = Mathf.Lerp(speed, targetSpeed, speedChange * Time.deltaTime);
 
-        if (Input.GetKeyDown(rollKey) && !isRolling)
+        if (Input.GetKeyDown(rollKey) && !isRolling && currentStamina >= rollStaminaCost)
         {
             StartCoroutine(Roll());
+            currentStamina -= rollStaminaCost;  // Consume stamina for rolling
         }
 
         if (Input.GetKey(forward))
         {
             isForward = true;
-        } else {
+        }
+        else
+        {
             isForward = false;
         }
 
         if (Input.GetKey(right))
         {
             isRight = true;
-        } else {
+        }
+        else
+        {
             isRight = false;
         }
 
         if (Input.GetKey(left))
         {
             isLeft = true;
-        } else {
+        }
+        else
+        {
             isLeft = false;
         }
 
         if (Input.GetKey(backward))
         {
             isBackward = true;
-        } else {
-            isBackward = false;
-        }
-
-        if (Input.GetKey(sprint))
-        {
-            sprinting = true;
         }
         else
         {
+            isBackward = false;
+        }
+
+        // Only allow sprinting if not already sprinting and enough stamina is available
+        if (Input.GetKey(sprint) && !sprinting && currentStamina >= sprintStaminaCost)
+        {
+            sprinting = true;
+        }
+
+        // Gradual stamina consumption during sprinting
+        if (sprinting && currentStamina >= sprintStaminaCost)
+        {
+            float sprintStaminaConsumption = sprintStaminaCost * Time.deltaTime;
+            currentStamina -= Mathf.CeilToInt(sprintStaminaConsumption);
+        }
+
+        // Stamina regeneration
+        if (!sprinting)
+        {
+            float regenAmount = 5f; // Adjust this value based on your preference
+            currentStamina += Mathf.CeilToInt(regenAmount * Time.deltaTime);
+            currentStamina = Mathf.Clamp(currentStamina, 0, MaxStamina);
+        }
+
+        // Allow sprinting only when the key is held down
+        if (!Input.GetKey(sprint) || currentStamina < sprintStaminaCost)
+        {
             sprinting = false;
         }
+
+        UpdateStaminaBar();
     }
 
     IEnumerator Roll()
@@ -136,11 +171,8 @@ public class PlayerMovement : MonoBehaviour
 
             while (rollTimer < rollDuration)
             {
-           
                 rb.AddForce(gunPos.forward * rollForce);
-
                 rollTimer += Time.deltaTime;
-
                 yield return null;
             }
 
@@ -153,57 +185,53 @@ public class PlayerMovement : MonoBehaviour
     {
         if (sprinting)
         {
-            if (GetComponent<Rigidbody>().velocity.magnitude > sprintSpeed)
+            if (rb.velocity.magnitude > sprintSpeed)
             {
-                GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity.normalized * sprintSpeed;
+                rb.velocity = rb.velocity.normalized * sprintSpeed;
             }
         }
         else
         {
-            if (GetComponent<Rigidbody>().velocity.magnitude > walkSpeed)
+            if (rb.velocity.magnitude > walkSpeed)
             {
-                GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity.normalized * walkSpeed;
+                rb.velocity = rb.velocity.normalized * walkSpeed;
             }
         }
 
-        if(canWalkAnimation)
+        if (canWalkAnimation)
         {
-            if (GetComponent<Rigidbody>().velocity.magnitude > 0.4f)
-            {
-                legs.SetBool("walking", true);
-
-                if(sprinting){
-                    legs.SetBool("running", true);
-                    legs.SetBool("walking", false);
-                } else {
-                    legs.SetBool("running", false);
-                    legs.SetBool("walking", true);
-                }
-            } else {
-                legs.SetBool("running", false);
-                legs.SetBool("walking", false);
-            }
-        } else {
-            Debug.Log("FUCK YOu!!1");
+            legs.SetBool("walking", rb.velocity.magnitude > 0.4f);
         }
-        
 
         playerCam.fieldOfView = Mathf.Lerp(playerCam.fieldOfView, aiming ? halfFov : normalFov, speedChange * Time.deltaTime);
 
-        if(isForward){
+        if (isForward)
+        {
             rb.AddForce(orientation.forward * speed);
         }
 
-        if(isBackward){
-            rb.AddForce(orientation.forward * ((speed * -1)));
+        if (isBackward)
+        {
+            rb.AddForce(orientation.forward * (-speed));
         }
 
-        if(isRight){
+        if (isRight)
+        {
             rb.AddForce(orientation.right * speed);
         }
 
-        if(isLeft){
-            rb.AddForce(orientation.right * (speed * -1));
+        if (isLeft)
+        {
+            rb.AddForce(orientation.right * (-speed));
+        }
+    }
+
+    void UpdateStaminaBar()
+    {
+        if (StaminaBar != null)
+        {
+            float staminaPercentage = currentStamina / (float)MaxStamina;
+            StaminaBar.size = staminaPercentage;
         }
     }
 }

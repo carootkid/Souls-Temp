@@ -1,17 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI; 
 
 public class PlayerHealth : MonoBehaviour
 {
     public int maxPotions;
-    public int currentPotions;  // Track the current number of potions the player has
+    public int currentPotions;  
     public float playerHealth = 100f;
     public float maxHealth = 100f;
+    public TextMeshProUGUI healthPotionsText; 
+    public Scrollbar healthScrollbar; 
 
     private void Start()
     {
-        currentPotions = maxPotions;  // Start with the maximum number of potions
+        currentPotions = maxPotions;  
+        UpdateHealthPotionsText();
+        UpdateHealthScrollbar();
     }
 
     public void TakeDamage(float damage)
@@ -23,14 +29,19 @@ public class PlayerHealth : MonoBehaviour
         {
             Debug.Log("GONE");
         }
+
+        UpdateHealthScrollbar(); 
     }
 
     private void Update()
     {
+        UpdateHealthScrollbar(); 
         
         if (Input.GetKeyDown(KeyCode.F))
         {
             UseHealingPotion();
+            UpdateHealthPotionsText();
+            UpdateHealthScrollbar(); 
         }
     }
 
@@ -38,11 +49,9 @@ public class PlayerHealth : MonoBehaviour
     {
         if (currentPotions > 0)
         {
-          
             playerHealth += 20f;  
             currentPotions--;
 
-          
             playerHealth = Mathf.Min(playerHealth, maxHealth);
 
             Debug.Log("Used Healing Potion. Current Health: " + playerHealth + ", Potions Left: " + currentPotions);
@@ -50,6 +59,24 @@ public class PlayerHealth : MonoBehaviour
         else
         {
             Debug.Log("No Healing Potions Left");
+        }
+    }
+
+    void UpdateHealthPotionsText()
+    {
+        if (healthPotionsText != null)
+        {
+            healthPotionsText.text = "" + currentPotions;
+        }
+    }
+
+    void UpdateHealthScrollbar()
+    {
+        if (healthScrollbar != null)
+        {
+            
+            float healthPercentage = playerHealth / maxHealth;
+            healthScrollbar.size = healthPercentage;
         }
     }
 }
