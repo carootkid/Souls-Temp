@@ -4132,6 +4132,8 @@ MonoBehaviour:
   sprintStaminaCost: 5
   rollStaminaCost: 25
   StaminaBar: {fileID: 1869466915}
+  regenInterval: 0.1
+  sprintInterval: 0.1
 --- !u!1 &216681522374174552
 GameObject:
   m_ObjectHideFlags: 0
