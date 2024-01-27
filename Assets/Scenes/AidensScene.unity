@@ -1307,7 +1307,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7067915, y: -0.021114979, z: -0.021114979, w: 0.7067915}
   m_LocalPosition: {x: -0.3959, y: 17.698196, z: -0.1464}
-  m_LocalScale: {x: 0.010730486, y: 0.70847803, z: 2.0040195}
+  m_LocalScale: {x: 0.010730486, y: 0.66910887, z: 2.0040195}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1895308791}
@@ -4346,6 +4346,8 @@ MonoBehaviour:
   jump: 32
   sprint: 304
   aim: 324
+  pickup: 0
+  switchWeapons: 0
   rb: {fileID: 2152408333459194249}
   isGrounded: 0
   sprinting: 0

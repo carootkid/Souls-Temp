@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LockOnSystem : MonoBehaviour
 {
     public Transform playerTransform;
-    public Transform cameraTransform; // Assign your camera's transform
+    public Transform cameraTransform;
     public float lockOnRange = 10f;
     public LayerMask enemyLayer;
-    public KeyCode lockOnKey = KeyCode.L; // Change this to your desired key
+    public KeyCode lockOnKey = KeyCode.L;
     public float rotationSpeed = 5f;
     public float cameraRotationSpeed = 5f;
     public float raycastMaxDistance = 100f;
@@ -18,13 +19,11 @@ public class LockOnSystem : MonoBehaviour
 
     void Update()
     {
-        // Check for user input to toggle lock-on
         if (Input.GetKeyDown(lockOnKey))
         {
             ToggleLockOn();
         }
 
-        // If there's a target, face it and update the camera
         if (currentTarget != null)
         {
             FaceTarget();
@@ -38,21 +37,16 @@ public class LockOnSystem : MonoBehaviour
 
         if (enemies.Length > 0)
         {
-            // Find the closest enemy and set it as the current target
             Transform closestEnemy = GetClosestEnemy(enemies);
 
-            // Check line of sight before locking on
             if (IsTargetVisible(closestEnemy))
             {
                 currentTarget = closestEnemy;
-
-                // Toggle lock-on state
                 isLockedOn = !isLockedOn;
             }
         }
         else
         {
-            // If no enemies in range, release the lock-on
             currentTarget = null;
             isLockedOn = false;
         }
@@ -82,26 +76,23 @@ public class LockOnSystem : MonoBehaviour
         if (target == null)
             return false;
 
-        // Raycast from player to target to check for obstacles
         Vector3 direction = (target.position - playerTransform.position).normalized;
         Ray ray = new Ray(playerTransform.position, direction);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, raycastMaxDistance))
         {
-            // Check if the hit object is the target or if it's an obstacle
             if (hit.transform == target)
             {
-                return true; // Target is visible
+                return true;
             }
         }
 
-        return false; // Target is not visible
+        return false;
     }
 
     void FaceTarget()
     {
-        // Rotate player towards the target
         Vector3 direction = (currentTarget.position - playerTransform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         playerTransform.rotation = Quaternion.Slerp(playerTransform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
@@ -109,7 +100,6 @@ public class LockOnSystem : MonoBehaviour
 
     void UpdateCamera()
     {
-        // Rotate camera only if locked-on
         if (isLockedOn)
         {
             Vector3 direction = (currentTarget.position - cameraTransform.position).normalized;
