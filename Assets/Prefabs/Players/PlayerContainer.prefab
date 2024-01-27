@@ -282,7 +282,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -326,7 +326,7 @@ MonoBehaviour:
   aiming: 0
   ground:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   groundDetectorScript: {fileID: 598678040109580607}
   orientation: {fileID: 3276928775856383903}
   jumpForce: 10
@@ -364,6 +364,7 @@ MonoBehaviour:
   mainHand: {fileID: 2763245210307026394}
   secondHand: {fileID: 4390175252968865932}
   pickupRadius: 3
+  switchSpeed: 10
 --- !u!114 &4906626764238349556
 MonoBehaviour:
   m_ObjectHideFlags: 0

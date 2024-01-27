@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode aim;
     public KeyCode pickup;
     public KeyCode switchWeapons;
+    public KeyCode shoot;
     public Rigidbody rb;
     public bool isGrounded;
     public bool sprinting;
@@ -29,6 +30,8 @@ public class PlayerMovement : MonoBehaviour
 
     private float tempSpeed;
     private float halfSpeed;
+    private float targetSpeed;
+    private float speedChange = 15f;
 
     public Camera playerCam;
 
@@ -41,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start() {
         tempSpeed = speed;
-        halfSpeed = speed / 2;
+        halfSpeed = speed / 1.5f;
 
         normalFov = playerCam.fieldOfView;
         halfFov = playerCam.fieldOfView / 2;
@@ -58,13 +61,14 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if(aiming){
-            speed = halfSpeed;
+            targetSpeed = halfSpeed;
             targetFov = halfFov;
         } else {
-            speed = tempSpeed;
+            targetSpeed = tempSpeed;
             targetFov = normalFov;
         }
 
+        speed = Mathf.Lerp(speed, targetSpeed, speedChange * Time.deltaTime);
 
         if(groundDetectorScript.grounded && Input.GetKeyDown(jump)){
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -83,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if(Input.GetKey(backward)){
-            rb.AddForce(orientation.forward * ((speed * -1) * 0.75f));
+            rb.AddForce(orientation.forward * ((speed * -1)));
         }
 
         if(Input.GetKey(sprint)){

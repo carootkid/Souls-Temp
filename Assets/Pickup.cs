@@ -54,25 +54,48 @@ public class Pickup : MonoBehaviour
             }
         }
 
+        Transform[] mainHandChildren2 = mainHand.GetComponentsInChildren<Transform>(true);
+        Transform[] secondHandChildren2 = secondHand.GetComponentsInChildren<Transform>(true);
+
+        foreach (Transform child in mainHandChildren2)
+        {
+            if (child.parent == mainHand.transform)
+            {
+                child.GetComponent<Gun>().enabled = true;
+            }
+        }
+
+        foreach (Transform child in secondHandChildren2)
+        {
+            if (child.parent == secondHand.transform)
+            {
+                child.GetComponent<Gun>().enabled = false;
+            }
+        }
+
     }
 
     public void PickUp()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, pickupRadius);
 
-        if (mainHand.childCount > 0)
-        {
-            Debug.Log("Main hand is FULL");
-            return;
-        }
-
         foreach (Collider collider in colliders)
         {
             if (collider.CompareTag("Gun") || collider.CompareTag("Melee"))
             {
+                
+                
+
+                if (mainHand.childCount > 0)
+                {
+                    Debug.Log("Main hand is FULL");
+                    return;
+                }
+
                 Debug.Log("Got " + collider.tag);
                 collider.transform.parent = mainHand;
                 collider.transform.localPosition = Vector3.zero;
+                collider.transform.localEulerAngles = Vector3.zero;
                 Rigidbody colliderRigidbody = collider.GetComponent<Rigidbody>();
                 
                 Collider colliderCollider = collider.GetComponent<Collider>();
