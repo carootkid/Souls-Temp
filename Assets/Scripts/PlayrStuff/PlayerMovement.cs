@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public KeyCode rollKey;
     public KeyCode forward;
     public KeyCode right;
     public KeyCode left;
@@ -23,7 +24,6 @@ public class PlayerMovement : MonoBehaviour
     public Transform orientation;
 
     public float jumpForce = 10f;
-
     public float speed = 10f;
     public float walkSpeed = 10f;
     public float sprintSpeed = 20f;
@@ -38,11 +38,13 @@ public class PlayerMovement : MonoBehaviour
     private float normalFov;
     private float halfFov;
 
-    private float cameraLerpSpeed = 15f;
+    public bool isRolling = false;
+    private float rollForce = 10f;
+    private float rollDuration = 0.4f;
+    private float rollTimer = 3f;
 
-    private float targetFov;
-
-    private void Start() {
+    private void Start()
+    {
         tempSpeed = speed;
         halfSpeed = speed / 1.5f;
 
@@ -52,7 +54,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKey(aim)){
+        if (Input.GetKey(aim))
+        {
             aiming = true;
         }
         else
@@ -60,60 +63,98 @@ public class PlayerMovement : MonoBehaviour
             aiming = false;
         }
 
-        if(aiming){
+        if (aiming)
+        {
             targetSpeed = halfSpeed;
-            targetFov = halfFov;
-        } else {
+        }
+        else
+        {
             targetSpeed = tempSpeed;
-            targetFov = normalFov;
         }
 
         speed = Mathf.Lerp(speed, targetSpeed, speedChange * Time.deltaTime);
 
-        if(groundDetectorScript.grounded && Input.GetKeyDown(jump)){
+        if (groundDetectorScript.grounded && Input.GetKeyDown(jump))
+        {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
-        
-        if(Input.GetKey(forward)){
+
+        if (Input.GetKey(rollKey) && !isRolling)
+        {
+            StartCoroutine(Roll());
+        }
+
+        if (Input.GetKey(forward))
+        {
             rb.AddForce(orientation.forward * speed);
         }
 
-        if(Input.GetKey(right)){
+        if (Input.GetKey(right))
+        {
             rb.AddForce(orientation.right * speed);
         }
 
-        if(Input.GetKey(left)){
+        if (Input.GetKey(left))
+        {
             rb.AddForce(orientation.right * (speed * -1));
         }
 
-        if(Input.GetKey(backward)){
+        if (Input.GetKey(backward))
+        {
             rb.AddForce(orientation.forward * ((speed * -1)));
         }
 
-        if(Input.GetKey(sprint)){
+        if (Input.GetKey(sprint))
+        {
             sprinting = true;
-        } else {
+        }
+        else
+        {
             sprinting = false;
         }
     }
 
-    void FixedUpdate() 
+    IEnumerator Roll()
     {
-        if(sprinting)
+        if (!isRolling)
         {
-            if(GetComponent<Rigidbody>().velocity.magnitude > sprintSpeed)
+            isRolling = true;
+            rollTimer = 0f;
+
+       
+            Vector3 rollDirection = (orientation.forward * Input.GetAxis("Vertical") + orientation.right * Input.GetAxis("Horizontal")).normalized;
+
+            while (rollTimer < rollDuration)
+            {
+           
+                rb.AddForce(rollDirection * rollForce);
+
+                rollTimer += Time.deltaTime;
+
+                yield return null;
+            }
+
+            isRolling = false;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (sprinting)
+        {
+            if (GetComponent<Rigidbody>().velocity.magnitude > sprintSpeed)
             {
                 GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity.normalized * sprintSpeed;
-            } 
-        } 
+            }
+        }
         else
         {
-            if(GetComponent<Rigidbody>().velocity.magnitude > walkSpeed)
+            if (GetComponent<Rigidbody>().velocity.magnitude > walkSpeed)
             {
                 GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity.normalized * walkSpeed;
             }
         }
-        
-        playerCam.fieldOfView = Mathf.Lerp(playerCam.fieldOfView, targetFov, cameraLerpSpeed * Time.deltaTime);
-    } 
+
+        playerCam.fieldOfView = Mathf.Lerp(playerCam.fieldOfView, aiming ? halfFov : normalFov, speedChange * Time.deltaTime);
+    }
 }

@@ -24,6 +24,9 @@ public class LockOnSystem : MonoBehaviour
             ToggleLockOn();
         }
 
+    }
+
+    void FixedUpdate() {
         if (currentTarget != null)
         {
             FaceTarget();
