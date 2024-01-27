@@ -16,6 +16,8 @@ public class Gun : MonoBehaviour
     public AudioClip shootClip;
     public  bool canShoot;
 
+    public Animator gunAnimator;
+
     private void Start() {
         canShoot = true;
     }
@@ -30,6 +32,7 @@ public class Gun : MonoBehaviour
         if(Input.GetKeyDown(playerMovement.shoot) && canShoot)
         {
             Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation);
+            gunAnimator.SetTrigger("Shoot");
             StartCoroutine(StartCooldown());
         }
     }

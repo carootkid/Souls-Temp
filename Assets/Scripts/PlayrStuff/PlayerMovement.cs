@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode right;
     public KeyCode left;
     public KeyCode backward;
-    public KeyCode jump;
     public KeyCode sprint;
     public KeyCode aim;
     public KeyCode pickup;
@@ -19,11 +18,8 @@ public class PlayerMovement : MonoBehaviour
     public bool isGrounded;
     public bool sprinting;
     public bool aiming;
-    public LayerMask ground;
-    public GroundDetector groundDetectorScript;
     public Transform orientation;
-
-    public float jumpForce = 10f;
+    public Transform gunPos;
     public float speed = 10f;
     public float walkSpeed = 10f;
     public float sprintSpeed = 20f;
@@ -39,9 +35,12 @@ public class PlayerMovement : MonoBehaviour
     private float halfFov;
 
     public bool isRolling = false;
-    private float rollForce = 10f;
-    private float rollDuration = 0.4f;
+    public float rollForce = 10f;
+    public float rollDuration = 0.4f;
     private float rollTimer = 3f;
+    public Animator legs;
+
+    private bool canWalkAnimation = true;
 
     private void Start()
     {
@@ -72,12 +71,9 @@ public class PlayerMovement : MonoBehaviour
             targetSpeed = tempSpeed;
         }
 
-        speed = Mathf.Lerp(speed, targetSpeed, speedChange * Time.deltaTime);
+        
 
-        if (groundDetectorScript.grounded && Input.GetKeyDown(jump))
-        {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        }
+        speed = Mathf.Lerp(speed, targetSpeed, speedChange * Time.deltaTime);
 
         if (Input.GetKey(rollKey) && !isRolling)
         {
@@ -119,15 +115,16 @@ public class PlayerMovement : MonoBehaviour
         if (!isRolling)
         {
             isRolling = true;
+            canWalkAnimation = false;
+            legs.SetBool("walking", false);
             rollTimer = 0f;
 
-       
-            Vector3 rollDirection = (orientation.forward * Input.GetAxis("Vertical") + orientation.right * Input.GetAxis("Horizontal")).normalized;
+            legs.SetTrigger("roll");
 
             while (rollTimer < rollDuration)
             {
            
-                rb.AddForce(rollDirection * rollForce);
+                rb.AddForce(gunPos.forward * rollForce);
 
                 rollTimer += Time.deltaTime;
 
@@ -135,6 +132,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
             isRolling = false;
+            canWalkAnimation = true;
         }
     }
 
@@ -154,6 +152,19 @@ public class PlayerMovement : MonoBehaviour
                 GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity.normalized * walkSpeed;
             }
         }
+
+        if(canWalkAnimation)
+        {
+            if (GetComponent<Rigidbody>().velocity.magnitude > 0.4f)
+            {
+                legs.SetBool("walking", true);
+            } else {
+                legs.SetBool("walking", false);
+            }
+        } else {
+            Debug.Log("FUCK YOu!!1");
+        }
+        
 
         playerCam.fieldOfView = Mathf.Lerp(playerCam.fieldOfView, aiming ? halfFov : normalFov, speedChange * Time.deltaTime);
     }

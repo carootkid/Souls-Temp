@@ -104,6 +104,7 @@ public class Pickup : MonoBehaviour
                 collider.transform.parent = mainHand;
                 collider.transform.localPosition = Vector3.zero;
                 collider.transform.localEulerAngles = Vector3.zero;
+                collider.transform.localScale = new Vector3(1f,1f,1f);
                 Rigidbody colliderRigidbody = collider.GetComponent<Rigidbody>();
                 
                 Collider colliderCollider = collider.GetComponent<Collider>();
