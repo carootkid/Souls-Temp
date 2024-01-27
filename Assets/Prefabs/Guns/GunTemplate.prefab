@@ -215,6 +215,7 @@ GameObject:
   - component: {fileID: 43193646407710821}
   - component: {fileID: 8052138942785283135}
   - component: {fileID: 2107421662350028612}
+  - component: {fileID: 4240069926424924079}
   m_Layer: 3
   m_Name: GunTemplate
   m_TagString: Gun
@@ -259,6 +260,7 @@ MonoBehaviour:
   shootSource: {fileID: 2107421662350028612}
   shootClip: {fileID: 8300000, guid: fc9916ce7c4e954469b629f4520e281d, type: 3}
   canShoot: 0
+  gunAnimator: {fileID: 4240069926424924079}
 --- !u!65 &43193646407710821
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -403,6 +405,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &4240069926424924079
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6550702591506499609}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a849d264ff864af4690134210b2279bc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7296573172077999685
 GameObject:
   m_ObjectHideFlags: 0

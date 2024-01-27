@@ -191,33 +191,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &515754281 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6550702591506499609, guid: 24f227101ac360048a9791f733625940,
-    type: 3}
-  m_PrefabInstance: {fileID: 4652102220767439967}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &515754287
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 515754281}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a849d264ff864af4690134210b2279bc, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &611116846
 GameObject:
   m_ObjectHideFlags: 0
@@ -1496,11 +1469,6 @@ PrefabInstance:
       objectReference: {fileID: 3746207377477025544}
     - target: {fileID: 3869883467995035949, guid: 24f227101ac360048a9791f733625940,
         type: 3}
-      propertyPath: gunAnimator
-      value: 
-      objectReference: {fileID: 515754287}
-    - target: {fileID: 3869883467995035949, guid: 24f227101ac360048a9791f733625940,
-        type: 3}
       propertyPath: playerMovement
       value: 
       objectReference: {fileID: 4907172587093791989}
@@ -1562,11 +1530,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6550702591506499609, guid: 24f227101ac360048a9791f733625940,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 515754287}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24f227101ac360048a9791f733625940, type: 3}
 --- !u!114 &4907172587093791989 stripped
 MonoBehaviour:
