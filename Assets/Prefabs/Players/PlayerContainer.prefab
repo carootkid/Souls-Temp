@@ -298,7 +298,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &988689067696781127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -320,6 +320,7 @@ MonoBehaviour:
   aim: 324
   pickup: 101
   switchWeapons: 113
+  shoot: 323
   rb: {fileID: 8394057702864095711}
   isGrounded: 0
   sprinting: 0
@@ -332,7 +333,7 @@ MonoBehaviour:
   jumpForce: 10
   speed: 10
   walkSpeed: 10
-  sprintSpeed: 20
+  sprintSpeed: 15
   playerCam: {fileID: 2649105343888243262}
 --- !u!114 &1764379493238911340
 MonoBehaviour:
@@ -431,7 +432,7 @@ GameObject:
   - component: {fileID: 2681949963411483252}
   - component: {fileID: 1734493668933629387}
   m_Layer: 3
-  m_Name: GameObject
+  m_Name: GunPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -540,13 +541,20 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5142505939885232472}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 47a2d7b8f96fb9b478ab7e82c4beab5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   aim: {fileID: 8817049495013776570}
   playerMovement: {fileID: 988689067696781127}
+  bulletSpawn: {fileID: 0}
+  bullet: {fileID: 0}
+  chargeUp: 0
+  Cooldown: 0
+  shootSource: {fileID: 0}
+  shootClip: {fileID: 0}
+  canShoot: 0
 --- !u!1 &5209515705917080683
 GameObject:
   m_ObjectHideFlags: 0
@@ -723,8 +731,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 570cca235fcf1dd43a4c82afc944ac84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivityX: -300
-  mouseSensitivityY: 150
+  mouseSensitivityX: -150
+  mouseSensitivityY: 600
   rotator: {fileID: 356294077805305103}
   orientation: {fileID: 3276928775856383903}
   player: {fileID: 2939791728463067033}

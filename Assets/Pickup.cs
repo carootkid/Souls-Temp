@@ -59,17 +59,25 @@ public class Pickup : MonoBehaviour
 
         foreach (Transform child in mainHandChildren2)
         {
-            if (child.parent == mainHand.transform)
+            if (child.parent == mainHand.transform && child.CompareTag("Gun"))
             {
                 child.GetComponent<Gun>().enabled = true;
+            }
+             else if(child.parent == mainHand.transform && child.CompareTag("Melee"))
+            {
+                child.GetComponent<Melee>().enabled = true;
             }
         }
 
         foreach (Transform child in secondHandChildren2)
         {
-            if (child.parent == secondHand.transform)
+            if (child.parent == secondHand.transform && child.CompareTag("Gun"))
             {
                 child.GetComponent<Gun>().enabled = false;
+            }
+             else if(child.parent == secondHand.transform && child.CompareTag("Melee"))
+            {
+                child.GetComponent<Melee>().enabled = false;
             }
         }
 
@@ -104,6 +112,13 @@ public class Pickup : MonoBehaviour
 
                 if (colliderCollider != null)
                     colliderCollider.enabled = false;
+
+                    if(collider.CompareTag("Gun"))
+                    {
+                        collider.GetComponent<Gun>().playerMovement = playerMovement;
+                    } else {
+                        collider.GetComponent<Melee>().playerMovement = playerMovement;
+                    }
             }
             else if (collider.CompareTag("Pickup"))
             {
