@@ -18,8 +18,7 @@ public class PlayerHealth : MonoBehaviour
     public LevelUpScript levelUpScript;
 
     public PlayerMovement playerMovement;
-    public MouseHider mouseHider; 
-    public OtherScript otherScript;
+    public MouseHider mouseHider;
 
     private void Start()
     {
@@ -90,9 +89,9 @@ public class PlayerHealth : MonoBehaviour
                     RestoreHealth();
 
                 
-                    if (otherScript != null)
+                    if (mouseHider != null)
                     {
-                        otherScript.enabled = false;
+                        mouseHider.enabled = false;
                     }
                 }
                 else
@@ -100,9 +99,9 @@ public class PlayerHealth : MonoBehaviour
                     atCampfire = false;
 
                     
-                    if (otherScript != null)
+                    if (mouseHider != null)
                     {
-                        otherScript.enabled = true;
+                        mouseHider.enabled = true;
                     }
                 }
             }
