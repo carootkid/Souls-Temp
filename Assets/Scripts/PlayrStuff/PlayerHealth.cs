@@ -14,8 +14,6 @@ public class PlayerHealth : MonoBehaviour
     public TextMeshProUGUI healthPotionsText; 
     public Scrollbar healthScrollbar; 
 
-    public script playerMovement;
-
     private void Start()
     {
         currentPotions = maxPotions;  
@@ -75,7 +73,6 @@ public class PlayerHealth : MonoBehaviour
     public void campInteract() {
         currentPotions = 3;
         playerHealth = 100;
-        playerMovement.setActive = false;
     }
     
 
@@ -96,3 +93,4 @@ public class PlayerHealth : MonoBehaviour
             healthScrollbar.size = healthPercentage;
         }
     }
+}
