@@ -1,18 +1,83 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Campfire : MonoBehaviour
+public class CampfireScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject restUI;
+    public GameObject playerObject; // Drag the player object into this field in the Unity Editor
+    private PlayerHealth playerHealth;
+    public GameObject baseUI;
+
+    private void Start()
     {
-        
+        restUI.SetActive(false);
+        FindPlayerHealth();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FindPlayerHealth()
     {
-        
+        if (playerObject != null)
+        {
+            // Get the PlayerHealth component from the playerObject
+            playerHealth = playerObject.GetComponent<PlayerHealth>();
+
+            if (playerHealth != null)
+            {
+                playerHealth.atCampfire = false;
+            }
+            else
+            {
+                Debug.LogError("PlayerHealth component not found on the playerObject!");
+            }
+        }
+        else
+        {
+            Debug.LogError("Player GameObject not assigned in the Unity Editor!");
+        }
+    }
+
+    private void Update()
+    {
+        ToggleRest();
+
+        if(playerHealth.atCampfire)
+        {
+            baseUI.SetActive(false);
+        }
+        else
+        {
+            baseUI.SetActive(true);
+        }
+    }
+
+    void ToggleRest()
+    {
+        if (playerHealth != null)
+        {
+            if (playerHealth.atCampfire)
+            {
+                ShowRestUI();
+            }
+            else
+            {
+                HideRestUI();
+            }
+        }
+        else
+        {
+            Debug.LogError("PlayerHealth component not found!");
+        }
+    }
+
+    void ShowRestUI()
+    {
+        restUI.SetActive(true);
+        Debug.Log("Player entered rest mode at the campfire.");
+    }
+
+    void HideRestUI()
+    {
+        restUI.SetActive(false);
+        Debug.Log("Player exited rest mode at the campfire.");
     }
 }
