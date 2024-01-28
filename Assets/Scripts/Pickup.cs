@@ -15,11 +15,10 @@ public class Pickup : MonoBehaviour
     public Animator handAnimator;
 
     private bool canSwitch = false;
+    private bool switchCooldown = false;
+    private float switchCooldownAmount = 1.0f;
 
-    void Start()
-    {
-
-    }
+    public PlayerHealth playerHealth;
 
     void Update()
     {
@@ -54,6 +53,8 @@ public class Pickup : MonoBehaviour
                     child.localEulerAngles = Vector3.zero;
                 }
             }
+
+            StartCoroutine(SwitchCooldown());
         }
 
         Transform[] mainHandChildren2 = mainHand.GetComponentsInChildren<Transform>(true);
@@ -117,8 +118,8 @@ public class Pickup : MonoBehaviour
             handAnimator.SetBool("idle", true);
         }
 
-        canSwitch = mainHandHasGun || secondHandHasGun;
 
+        canSwitch = !switchCooldown;
 
     }
 
@@ -164,8 +165,34 @@ public class Pickup : MonoBehaviour
             else if (collider.CompareTag("Pickup"))
             {
                 Debug.Log("Got Pickup");
+                PickupType type = collider.GetComponent<PickupType>();
+
+                if(type.isAmmo != true){
+                    if(playerHealth.currentPotions != playerHealth.maxPotions)
+                    {
+                        playerHealth.currentPotions = playerHealth.currentPotions + type.amount;
+                        type.DestroySelf();
+                    }
+                    else
+                    {
+                        Debug.Log("Max Potions Reached.");
+                    }
+                    
+                    
+                }
+
+                
             }
         }
 
+    }
+
+    IEnumerator SwitchCooldown()
+    {
+        switchCooldown = true;
+
+        yield return new WaitForSeconds(switchCooldownAmount);
+
+        switchCooldown = false;
     }
 }
