@@ -7125,10 +7125,9 @@ MonoBehaviour:
   healthScrollbar: {fileID: 4618958794417784927}
   interactRange: 5
   playerCamera: {fileID: 2759161167703596449}
-  atCampfire: 1
+  atCampfire: 0
   levelUpScript: {fileID: 7479854861350203010}
   playerMovement: {fileID: 7478374748419626614}
-  mouseHider: {fileID: 748058768780977239}
 --- !u!114 &7479854861350203010
 MonoBehaviour:
   m_ObjectHideFlags: 0
