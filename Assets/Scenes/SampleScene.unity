@@ -688,7 +688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAmmo: 0
-  amount: 1
+  amount: 0
 --- !u!1 &1693836829
 GameObject:
   m_ObjectHideFlags: 0
@@ -1427,6 +1427,11 @@ PrefabInstance:
       propertyPath: playerHealth
       value: 
       objectReference: {fileID: 2436874043865686337}
+    - target: {fileID: 7479854861171424485, guid: 6055c4137538c2146a696e97c3dae65a,
+        type: 3}
+      propertyPath: maxPotions
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8684869586348793917, guid: 6055c4137538c2146a696e97c3dae65a,
         type: 3}
       propertyPath: m_AnchorMax.x

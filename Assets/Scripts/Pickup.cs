@@ -61,8 +61,6 @@ public class Pickup : MonoBehaviour
         Transform[] secondHandChildren2 = secondHand.GetComponentsInChildren<Transform>(true);
 
         bool foundGunOrMelee = false;
-        bool mainHandHasGun = false;
-        bool secondHandHasGun = false;
 
         foreach (Transform child in mainHandChildren2)
         {
@@ -85,7 +83,6 @@ public class Pickup : MonoBehaviour
                             handAnimator.SetBool("idle", false);
                         }
                         foundGunOrMelee = true;
-                        mainHandHasGun = true;
                     }
                 }
                 else if (child.CompareTag("Melee"))
@@ -105,7 +102,6 @@ public class Pickup : MonoBehaviour
             if (child.parent == secondHand.transform && child.CompareTag("Gun"))
             {
                 child.GetComponent<Gun>().enabled = false;
-                secondHandHasGun = true;
             }
             else if (child.parent == secondHand.transform && child.CompareTag("Melee"))
             {
@@ -170,7 +166,8 @@ public class Pickup : MonoBehaviour
                 if(type.isAmmo != true){
                     if(playerHealth.currentPotions != playerHealth.maxPotions)
                     {
-                        playerHealth.currentPotions = playerHealth.currentPotions + type.amount;
+                        playerHealth.currentPotions += type.amount;
+                        Debug.Log(type.amount);
                         type.DestroySelf();
                     }
                     else
