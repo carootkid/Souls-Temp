@@ -688,7 +688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAmmo: 0
-  amount: 0
+  amount: 1
 --- !u!1 &1693836829
 GameObject:
   m_ObjectHideFlags: 0
