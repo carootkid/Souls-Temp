@@ -4,9 +4,14 @@ using UnityEngine.UI;
 public class CampfireScript : MonoBehaviour
 {
     public GameObject restUI;
-    public GameObject playerObject; // Drag the player object into this field in the Unity Editor
+    public GameObject playerObject; 
     private PlayerHealth playerHealth;
     public GameObject baseUI;
+    private LevelUpScript levelUpScript;
+    public int healthlevel = 1;
+    public int ammolevel = 1;
+    public int staminalevel = 1;
+    public int strengthlevel = 1;
 
     private void Start()
     {
@@ -18,7 +23,6 @@ public class CampfireScript : MonoBehaviour
     {
         if (playerObject != null)
         {
-            // Get the PlayerHealth component from the playerObject
             playerHealth = playerObject.GetComponent<PlayerHealth>();
 
             if (playerHealth != null)
@@ -78,6 +82,38 @@ public class CampfireScript : MonoBehaviour
     void HideRestUI()
     {
         restUI.SetActive(false);
-        
+    }
+
+    public void increaseHealth()
+    {
+        if(levelUpScript.levelPoints >= 1 && healthlevel <= 50)
+        {
+            healthlevel++;
+            Debug.Log("leveled health");
+        }
+    }
+    public void increaseAmmo()
+    {
+        if(levelUpScript.levelPoints >= 1 && ammolevel <= 50)
+        {
+            ammolevel++;
+            Debug.Log("leveled Ammo");
+        }
+    }
+    public void increaseStength()
+    {
+        if(levelUpScript.levelPoints >= 1 && strengthlevel <= 50)
+        {
+            strengthlevel++;
+            Debug.Log("leveled strength");
+        }
+    }
+    public void increaseStamina()
+    {
+        if(levelUpScript.levelPoints >= 1 && staminalevel <= 50)
+        {
+            staminalevel++;
+            Debug.Log("leveled stamina");
+        }
     }
 }

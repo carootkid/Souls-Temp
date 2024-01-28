@@ -15,8 +15,11 @@ public class PlayerHealth : MonoBehaviour
     public float interactRange = 5f;
     public Camera playerCamera; 
     public bool atCampfire;
+    public LevelUpScript levelUpScript;
 
     public PlayerMovement playerMovement;
+    public MouseHider mouseHider; 
+    public OtherScript otherScript;
 
     private void Start()
     {
@@ -24,6 +27,8 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthPotionsText();
         UpdateHealthScrollbar();
         atCampfire = false;
+
+        mouseHider = GetComponent<MouseHider>();
     }
 
     public void TakeDamage(float damage)
@@ -38,14 +43,14 @@ public class PlayerHealth : MonoBehaviour
             }
 
             UpdateHealthScrollbar();
-        }
-        
+        }    
     }
 
     private void Update()
     {
         UpdateHealthScrollbar();
         UpdateHealthPotionsText();
+        
 
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -59,7 +64,7 @@ public class PlayerHealth : MonoBehaviour
        
     }
 
-     void InteractWithCampfire()
+    void InteractWithCampfire()
     {
         if (playerCamera == null)
         {
@@ -80,13 +85,25 @@ public class PlayerHealth : MonoBehaviour
 
                 if (!atCampfire)
                 {
-                    atCampfire = true; 
+                    atCampfire = true;
                     RestoreHealthPotions();
                     RestoreHealth();
+
+                
+                    if (otherScript != null)
+                    {
+                        otherScript.enabled = false;
+                    }
                 }
                 else
                 {
-                    atCampfire = false; 
+                    atCampfire = false;
+
+                    
+                    if (otherScript != null)
+                    {
+                        otherScript.enabled = true;
+                    }
                 }
             }
         }
@@ -94,14 +111,13 @@ public class PlayerHealth : MonoBehaviour
 
     void RestoreHealthPotions()
     {
-      
         currentPotions = maxPotions;
         UpdateHealthPotionsText();
     }
 
     void RestoreHealth()
     {
-        // Restore full health
+     
         playerHealth = maxHealth;
         UpdateHealthScrollbar();
     }
