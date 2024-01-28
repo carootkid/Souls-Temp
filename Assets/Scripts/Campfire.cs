@@ -78,6 +78,6 @@ public class CampfireScript : MonoBehaviour
     void HideRestUI()
     {
         restUI.SetActive(false);
-        Debug.Log("Player exited rest mode at the campfire.");
+        
     }
 }
