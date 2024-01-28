@@ -18,7 +18,7 @@ public class PlayerHealth : MonoBehaviour
     public LevelUpScript levelUpScript;
 
     public PlayerMovement playerMovement;
-    public MouseHider mouseHider;
+
 
     private void Start()
     {
@@ -26,8 +26,6 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthPotionsText();
         UpdateHealthScrollbar();
         atCampfire = false;
-
-        mouseHider = GetComponent<MouseHider>();
     }
 
     public void TakeDamage(float damage)
@@ -88,22 +86,13 @@ public class PlayerHealth : MonoBehaviour
                     RestoreHealthPotions();
                     RestoreHealth();
 
-                
-                    if (mouseHider != null)
-                    {
-                        mouseHider.enabled = false;
-                    }
                 }
                 else
                 {
                     atCampfire = false;
-
-                    
-                    if (mouseHider != null)
-                    {
-                        mouseHider.enabled = true;
-                    }
                 }
+
+                
             }
         }
     }
@@ -155,3 +144,4 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 }
+
