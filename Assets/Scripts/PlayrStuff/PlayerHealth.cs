@@ -1,30 +1,33 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public bool CampfireInteraction;
     public int maxPotions;
     public int currentPotions;
     public float playerHealth = 100f;
     public float maxHealth = 100f;
     public TextMeshProUGUI healthPotionsText;
     public Scrollbar healthScrollbar;
-    public float interactionRange = 5f;
-    public PlayerMovement playerMovement;
+    public float interactRange = 5f;
+    public Camera playerCamera; 
+    public bool atCampfire;
 
     private void Start()
     {
         currentPotions = maxPotions;
         UpdateHealthPotionsText();
         UpdateHealthScrollbar();
+        atCampfire = false;
     }
 
     public void TakeDamage(float damage)
     {
         playerHealth -= damage;
+        Debug.Log("Hit");
 
         if (playerHealth <= 0)
         {
@@ -41,53 +44,61 @@ public class PlayerHealth : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            TryCampInteract();
+            InteractWithCampfire();
         }
 
         if (Input.GetKeyDown(KeyCode.F))
         {
             UseHealingPotion();
-            UpdateHealthScrollbar();
         }
+       
     }
 
-      void TryCampInteract()
+     void InteractWithCampfire()
+    {
+        if (playerCamera == null)
         {
-            RaycastHit hit;
+            Debug.LogError("Player camera not assigned.");
+            return;
+        }
 
-            if (Physics.Raycast(transform.position, transform.forward, out hit, interactionRange))
+        RaycastHit hit;
+        Ray ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+
+        Debug.DrawRay(ray.origin, ray.direction * interactRange, Color.green, 2f);
+
+        if (Physics.Raycast(ray, out hit, interactRange))
+        {
+            if (hit.collider.CompareTag("Campfire"))
             {
-               
-                Debug.DrawRay(transform.position, transform.forward * interactionRange, Color.blue, 1f);
-                Debug.Log("shot");
-                if (hit.collider.CompareTag("Campfire"))
+                Debug.Log("Interacting with campfire.");
+
+                if (!atCampfire)
                 {
-                    campInteract();
+                    atCampfire = true; 
+                    RestoreHealthPotions();
+                    RestoreHealth();
+                }
+                else
+                {
+                    atCampfire = false; 
                 }
             }
+        }
     }
 
-    public void campInteract()
+    void RestoreHealthPotions()
     {
+      
         currentPotions = maxPotions;
-        playerHealth = maxHealth;
-
-        if (playerMovement != null)
-        {
-            playerMovement.enabled = false;
-        }
-
-        StartCoroutine(EnablePlayerMovementAfterDelay(5f));
+        UpdateHealthPotionsText();
     }
 
-    IEnumerator EnablePlayerMovementAfterDelay(float delay)
+    void RestoreHealth()
     {
-        yield return new WaitForSeconds(delay);
-
-        if (playerMovement != null)
-        {
-            playerMovement.enabled = true;
-        }
+        // Restore full health
+        playerHealth = maxHealth;
+        UpdateHealthScrollbar();
     }
 
     void UseHealingPotion()
@@ -98,6 +109,8 @@ public class PlayerHealth : MonoBehaviour
             currentPotions--;
 
             playerHealth = Mathf.Min(playerHealth, maxHealth);
+
+            Debug.Log("Used Healing Potion. Current Health: " + playerHealth + ", Potions Left: " + currentPotions);
         }
         else
         {
