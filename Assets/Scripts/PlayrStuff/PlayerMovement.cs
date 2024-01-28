@@ -217,7 +217,21 @@ public class PlayerMovement : MonoBehaviour
 
         if (canWalkAnimation)
         {
-            legs.SetBool("walking", rb.velocity.magnitude > 0.4f);
+            if (GetComponent<Rigidbody>().velocity.magnitude > 0.4f)
+            {
+                legs.SetBool("walking", true);
+
+                if(sprinting){
+                    legs.SetBool("running", true);
+                    legs.SetBool("walking", false);
+                } else {
+                    legs.SetBool("running", false);
+                    legs.SetBool("walking", true);
+                }
+            } else {
+                legs.SetBool("running", false);
+                legs.SetBool("walking", false);
+            }
         }
 
         playerCam.fieldOfView = Mathf.Lerp(playerCam.fieldOfView, aiming ? halfFov : normalFov, speedChange * Time.deltaTime);

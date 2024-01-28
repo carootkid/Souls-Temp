@@ -16,6 +16,8 @@ public class Gun : MonoBehaviour
     public AudioClip shootClip;
     public  bool canShoot;
 
+    public bool oneHanded = false;
+
     public Animator gunAnimator;
 
     private void Start() {

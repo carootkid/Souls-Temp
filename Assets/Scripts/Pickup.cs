@@ -8,12 +8,13 @@ public class Pickup : MonoBehaviour
 
     public Transform mainHand;
     public Transform secondHand;
+    public Transform aimTransform;
 
     public float pickupRadius;
 
-    private bool switched = false;
+    public Animator handAnimator;
 
-    public float switchSpeed = 10f;
+    private bool canSwitch = false;
 
     void Start()
     {
@@ -28,8 +29,9 @@ public class Pickup : MonoBehaviour
             PickUp();
         }
 
-        if (Input.GetKeyDown(playerMovement.switchWeapons))
+        if (Input.GetKeyDown(playerMovement.switchWeapons) && canSwitch)
         {
+            handAnimator.SetTrigger("Switch");
             Transform[] mainHandChildren = mainHand.GetComponentsInChildren<Transform>(true);
             Transform[] secondHandChildren = secondHand.GetComponentsInChildren<Transform>(true);
 
@@ -57,15 +59,43 @@ public class Pickup : MonoBehaviour
         Transform[] mainHandChildren2 = mainHand.GetComponentsInChildren<Transform>(true);
         Transform[] secondHandChildren2 = secondHand.GetComponentsInChildren<Transform>(true);
 
+        bool foundGunOrMelee = false;
+        bool mainHandHasGun = false;
+        bool secondHandHasGun = false;
+
         foreach (Transform child in mainHandChildren2)
         {
-            if (child.parent == mainHand.transform && child.CompareTag("Gun"))
+            if (child.parent == mainHand.transform)
             {
-                child.GetComponent<Gun>().enabled = true;
-            }
-             else if(child.parent == mainHand.transform && child.CompareTag("Melee"))
-            {
-                child.GetComponent<Melee>().enabled = true;
+                if (child.CompareTag("Gun"))
+                {
+                    Gun gunScript = child.GetComponent<Gun>();
+                    if (gunScript != null)
+                    {
+                        gunScript.enabled = true;
+                        if (gunScript.oneHanded)
+                        {
+                            handAnimator.SetBool("OneHanded", true);
+                            handAnimator.SetBool("idle", false);
+                        }
+                        else
+                        {
+                            handAnimator.SetBool("OneHanded", false);
+                            handAnimator.SetBool("idle", false);
+                        }
+                        foundGunOrMelee = true;
+                        mainHandHasGun = true;
+                    }
+                }
+                else if (child.CompareTag("Melee"))
+                {
+                    Melee meleeScript = child.GetComponent<Melee>();
+                    if (meleeScript != null)
+                    {
+                        meleeScript.enabled = true;
+                        foundGunOrMelee = true;
+                    }
+                }
             }
         }
 
@@ -74,12 +104,21 @@ public class Pickup : MonoBehaviour
             if (child.parent == secondHand.transform && child.CompareTag("Gun"))
             {
                 child.GetComponent<Gun>().enabled = false;
+                secondHandHasGun = true;
             }
-             else if(child.parent == secondHand.transform && child.CompareTag("Melee"))
+            else if (child.parent == secondHand.transform && child.CompareTag("Melee"))
             {
                 child.GetComponent<Melee>().enabled = false;
             }
         }
+
+        if (!foundGunOrMelee)
+        {
+            handAnimator.SetBool("idle", true);
+        }
+
+        canSwitch = mainHandHasGun || secondHandHasGun;
+
 
     }
 
@@ -117,6 +156,7 @@ public class Pickup : MonoBehaviour
                     if(collider.CompareTag("Gun"))
                     {
                         collider.GetComponent<Gun>().playerMovement = playerMovement;
+                        collider.GetComponent<Gun>().aim = aimTransform;
                     } else {
                         collider.GetComponent<Melee>().playerMovement = playerMovement;
                     }
