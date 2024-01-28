@@ -1,22 +1,23 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI; 
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
     public bool CampfireInteraction;
     public int maxPotions;
-    public int currentPotions;  
+    public int currentPotions;
     public float playerHealth = 100f;
     public float maxHealth = 100f;
-    public TextMeshProUGUI healthPotionsText; 
-    public Scrollbar healthScrollbar; 
+    public TextMeshProUGUI healthPotionsText;
+    public Scrollbar healthScrollbar;
+    public float interactionRange = 5f;
+    public PlayerMovement playerMovement;
 
     private void Start()
     {
-        currentPotions = maxPotions;  
+        currentPotions = maxPotions;
         UpdateHealthPotionsText();
         UpdateHealthScrollbar();
     }
@@ -24,32 +25,68 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         playerHealth -= damage;
-        Debug.Log("Hit");
 
         if (playerHealth <= 0)
         {
             Debug.Log("GONE");
         }
 
-        UpdateHealthScrollbar(); 
+        UpdateHealthScrollbar();
     }
 
-   
     private void Update()
     {
-        UpdateHealthScrollbar(); 
+        UpdateHealthScrollbar();
         UpdateHealthPotionsText();
 
-        if(Input.GetKeyDown(KeyCode.E)){
-            campInteract();
-            Debug.Log("used campfire");
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            TryCampInteract();
         }
-        
+
         if (Input.GetKeyDown(KeyCode.F))
         {
             UseHealingPotion();
-            
-            UpdateHealthScrollbar(); 
+            UpdateHealthScrollbar();
+        }
+    }
+
+      void TryCampInteract()
+        {
+            RaycastHit hit;
+
+            if (Physics.Raycast(transform.position, transform.forward, out hit, interactionRange))
+            {
+               
+                Debug.DrawRay(transform.position, transform.forward * interactionRange, Color.blue, 1f);
+                Debug.Log("shot");
+                if (hit.collider.CompareTag("Campfire"))
+                {
+                    campInteract();
+                }
+            }
+    }
+
+    public void campInteract()
+    {
+        currentPotions = maxPotions;
+        playerHealth = maxHealth;
+
+        if (playerMovement != null)
+        {
+            playerMovement.enabled = false;
+        }
+
+        StartCoroutine(EnablePlayerMovementAfterDelay(5f));
+    }
+
+    IEnumerator EnablePlayerMovementAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (playerMovement != null)
+        {
+            playerMovement.enabled = true;
         }
     }
 
@@ -57,24 +94,16 @@ public class PlayerHealth : MonoBehaviour
     {
         if (currentPotions > 0)
         {
-            playerHealth += 20f;  
+            playerHealth += 20f;
             currentPotions--;
 
             playerHealth = Mathf.Min(playerHealth, maxHealth);
-
-            Debug.Log("Used Healing Potion. Current Health: " + playerHealth + ", Potions Left: " + currentPotions);
         }
         else
         {
             Debug.Log("No Healing Potions Left");
         }
-    } 
-
-    public void campInteract() {
-        currentPotions = 3;
-        playerHealth = 100;
     }
-    
 
     void UpdateHealthPotionsText()
     {
@@ -88,7 +117,6 @@ public class PlayerHealth : MonoBehaviour
     {
         if (healthScrollbar != null)
         {
-            
             float healthPercentage = playerHealth / maxHealth;
             healthScrollbar.size = healthPercentage;
         }
