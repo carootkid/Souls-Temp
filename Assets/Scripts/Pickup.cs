@@ -228,6 +228,9 @@ public class Pickup : MonoBehaviour
                 }
 
                 
+            } else if(collider.CompareTag("Armor"))
+            {
+                Debug.Log("Got armor");
             }
         }
 
