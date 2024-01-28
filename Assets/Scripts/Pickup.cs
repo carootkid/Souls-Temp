@@ -20,6 +20,8 @@ public class Pickup : MonoBehaviour
 
     public PlayerHealth playerHealth;
 
+    public AmmoManager ammoManager;
+
     void Update()
     {
 
@@ -154,6 +156,7 @@ public class Pickup : MonoBehaviour
                     {
                         collider.GetComponent<Gun>().playerMovement = playerMovement;
                         collider.GetComponent<Gun>().aim = aimTransform;
+                        collider.GetComponent<Gun>().ammoManager = ammoManager;
                     } else {
                         collider.GetComponent<Melee>().playerMovement = playerMovement;
                     }
@@ -176,6 +179,16 @@ public class Pickup : MonoBehaviour
                     }
                     
                     
+                } else {
+                    if(ammoManager.ammoAmount != ammoManager.maxAmmo){
+                        ammoManager.ammoAmount += type.amount;
+                        Debug.Log(type.amount);
+                        type.DestroySelf();
+                    }
+                    else
+                    {
+                        Debug.Log("Max Ammo Reached.");
+                    }
                 }
 
                 

@@ -8,13 +8,18 @@ public class Gun : MonoBehaviour
 
     public PlayerMovement playerMovement;
 
+    public AmmoManager ammoManager;
+
     public Transform bulletSpawn;
     public GameObject bullet;
     public float chargeUp;
     public float Cooldown;
+    public int ammoPerMagazine = 30;
+    public int currentAmmo;
     public AudioSource shootSource;
     public AudioClip shootClip;
     public  bool canShoot;
+    public bool hasAmmo;
 
     public bool oneHanded = false;
 
@@ -30,9 +35,12 @@ public class Gun : MonoBehaviour
         } else {
             transform.localEulerAngles = Vector3.zero;
         }
+
+        hasAmmo = currentAmmo > 0;
         
-        if(Input.GetKeyDown(playerMovement.shoot) && canShoot)
+        if(Input.GetKeyDown(playerMovement.shoot) && canShoot && hasAmmo)
         {
+            currentAmmo--;
             Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation);
             gunAnimator.SetTrigger("Shoot");
             StartCoroutine(StartCooldown());

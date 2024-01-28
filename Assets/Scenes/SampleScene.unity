@@ -687,7 +687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 100176bfdc289cf41b8a838bd0db1c70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAmmo: 0
+  isAmmo: 1
   amount: 1
 --- !u!1 &1693836829
 GameObject:
@@ -1429,6 +1429,11 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4806675596318208332, guid: 6055c4137538c2146a696e97c3dae65a,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.29
+      objectReference: {fileID: 0}
     - target: {fileID: 6104575065632071004, guid: 6055c4137538c2146a696e97c3dae65a,
         type: 3}
       propertyPath: m_fontAsset
@@ -1458,6 +1463,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6936435776104109720, guid: 6055c4137538c2146a696e97c3dae65a,
         type: 3}
+      propertyPath: ammoManager
+      value: 
+      objectReference: {fileID: 8559305498946882322}
+    - target: {fileID: 6936435776104109720, guid: 6055c4137538c2146a696e97c3dae65a,
+        type: 3}
       propertyPath: playerHealth
       value: 
       objectReference: {fileID: 2436874043865686337}
@@ -1466,6 +1476,11 @@ PrefabInstance:
       propertyPath: maxPotions
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7479854861171424485, guid: 6055c4137538c2146a696e97c3dae65a,
+        type: 3}
+      propertyPath: playerMovement
+      value: 
+      objectReference: {fileID: 3325849843155772557}
     - target: {fileID: 8684869586348793917, guid: 6055c4137538c2146a696e97c3dae65a,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1479,7 +1494,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 777840647015844192, guid: 6055c4137538c2146a696e97c3dae65a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8559305498946882322}
   m_SourcePrefab: {fileID: 100100000, guid: 6055c4137538c2146a696e97c3dae65a, type: 3}
 --- !u!114 &2436874043865686337 stripped
 MonoBehaviour:
@@ -1487,10 +1506,22 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1752345659951412585}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 7812075797567464318}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5b40be5dc8386543b94fe65885ee4e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3325849843155772557 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7478374748357231634, guid: 6055c4137538c2146a696e97c3dae65a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1752345659951412585}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7812075797567464318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f35571c6defc854abb9d28de2819cb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!33 &3469287836894973723
@@ -1563,13 +1594,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aim: {fileID: 0}
   playerMovement: {fileID: 0}
+  ammoManager: {fileID: 0}
   bulletSpawn: {fileID: 1008762840}
   bullet: {fileID: 3047876644522267847, guid: 53c86d7743213af4fab5c34b1e969230, type: 3}
   chargeUp: 0
   Cooldown: 0
+  ammoPerShot: 1
   shootSource: {fileID: 3469287836894973727}
   shootClip: {fileID: 8300000, guid: fc9916ce7c4e954469b629f4520e281d, type: 3}
   canShoot: 0
+  hasAmmo: 0
   oneHanded: 0
   gunAnimator: {fileID: 0}
 --- !u!82 &3469287836894973727
@@ -1767,6 +1801,39 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24f227101ac360048a9791f733625940, type: 3}
+--- !u!114 &7178500285810062089 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4650723814193107958, guid: 6055c4137538c2146a696e97c3dae65a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1752345659951412585}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &7812075797567464318 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 777840647015844192, guid: 6055c4137538c2146a696e97c3dae65a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1752345659951412585}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8559305498946882322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7812075797567464318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 754c4e98df9e3fd49af514d9a1c90af9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ammoAmount: 100
+  maxAmmo: 2
+  ammoText: {fileID: 7178500285810062089}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
