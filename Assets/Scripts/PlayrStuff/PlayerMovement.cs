@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode pickup;
     public KeyCode switchWeapons;
     public KeyCode shoot;
+    public KeyCode reload;
     public Rigidbody rb;
     public bool isGrounded;
     public bool sprinting;

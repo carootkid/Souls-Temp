@@ -1471,11 +1471,21 @@ PrefabInstance:
       propertyPath: playerHealth
       value: 
       objectReference: {fileID: 2436874043865686337}
+    - target: {fileID: 7478374748357231634, guid: 6055c4137538c2146a696e97c3dae65a,
+        type: 3}
+      propertyPath: reload
+      value: 114
+      objectReference: {fileID: 0}
     - target: {fileID: 7479854861171424485, guid: 6055c4137538c2146a696e97c3dae65a,
         type: 3}
       propertyPath: maxPotions
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7479854861171424485, guid: 6055c4137538c2146a696e97c3dae65a,
+        type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 3086007318385211215}
     - target: {fileID: 7479854861171424485, guid: 6055c4137538c2146a696e97c3dae65a,
         type: 3}
       propertyPath: playerMovement
@@ -1512,6 +1522,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5b40be5dc8386543b94fe65885ee4e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!20 &3086007318385211215 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2759161167499644869, guid: 6055c4137538c2146a696e97c3dae65a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1752345659951412585}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3325849843155772557 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7478374748357231634, guid: 6055c4137538c2146a696e97c3dae65a,
@@ -1599,11 +1615,14 @@ MonoBehaviour:
   bullet: {fileID: 3047876644522267847, guid: 53c86d7743213af4fab5c34b1e969230, type: 3}
   chargeUp: 0
   Cooldown: 0
-  ammoPerShot: 1
+  ammoPerMagazine: 30
+  timeToReload: 5
+  currentAmmo: 0
   shootSource: {fileID: 3469287836894973727}
   shootClip: {fileID: 8300000, guid: fc9916ce7c4e954469b629f4520e281d, type: 3}
   canShoot: 0
   hasAmmo: 0
+  reloading: 0
   oneHanded: 0
   gunAnimator: {fileID: 0}
 --- !u!82 &3469287836894973727
@@ -1702,12 +1721,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!4 &4332944945509060283 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1296377991203638418, guid: 6055c4137538c2146a696e97c3dae65a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1752345659951412585}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4652102220767439967
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1720,11 +1733,26 @@ PrefabInstance:
         type: 3}
       propertyPath: aim
       value: 
-      objectReference: {fileID: 4332944945509060283}
+      objectReference: {fileID: 0}
+    - target: {fileID: 3869883467995035949, guid: 24f227101ac360048a9791f733625940,
+        type: 3}
+      propertyPath: currentAmmo
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3869883467995035949, guid: 24f227101ac360048a9791f733625940,
+        type: 3}
+      propertyPath: timeToReload
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3869883467995035949, guid: 24f227101ac360048a9791f733625940,
         type: 3}
       propertyPath: playerMovement
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3869883467995035949, guid: 24f227101ac360048a9791f733625940,
+        type: 3}
+      propertyPath: ammoPerMagazine
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6550702591506499609, guid: 24f227101ac360048a9791f733625940,
         type: 3}

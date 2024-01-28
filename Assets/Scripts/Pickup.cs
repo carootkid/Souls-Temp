@@ -15,12 +15,19 @@ public class Pickup : MonoBehaviour
     public Animator handAnimator;
 
     private bool canSwitch = false;
+    private bool reloading;
     private bool switchCooldown = false;
     private float switchCooldownAmount = 1.0f;
 
     public PlayerHealth playerHealth;
 
     public AmmoManager ammoManager;
+
+    private float timeToReload = 0f;
+
+    public bool foundGunOrMelee;
+
+    private Gun gunScript;
 
     void Update()
     {
@@ -30,7 +37,31 @@ public class Pickup : MonoBehaviour
             PickUp();
         }
 
-        if (Input.GetKeyDown(playerMovement.switchWeapons) && canSwitch)
+        
+        bool ammoNotMaxed = true;
+
+        if(gunScript != null)
+        {
+
+            if(gunScript.currentAmmo == gunScript.ammoPerMagazine){
+                ammoNotMaxed = false;
+                Debug.Log("Ammo Is Maxed.");
+            } else {
+                ammoNotMaxed = true;
+                
+                Debug.Log("Ammo Not Maxed.");
+            }
+        }
+        
+        
+
+        if(Input.GetKeyDown(playerMovement.reload) && foundGunOrMelee && ammoManager.ammoAmount > 0 && ammoNotMaxed)
+        {
+            StartCoroutine(Reload());
+            Debug.Log("Reloading...");
+        }
+
+        if (Input.GetKeyDown(playerMovement.switchWeapons) && canSwitch && !reloading)
         {
             handAnimator.SetTrigger("Switch");
             Transform[] mainHandChildren = mainHand.GetComponentsInChildren<Transform>(true);
@@ -62,15 +93,16 @@ public class Pickup : MonoBehaviour
         Transform[] mainHandChildren2 = mainHand.GetComponentsInChildren<Transform>(true);
         Transform[] secondHandChildren2 = secondHand.GetComponentsInChildren<Transform>(true);
 
-        bool foundGunOrMelee = false;
+        foundGunOrMelee = false;
 
+        
         foreach (Transform child in mainHandChildren2)
         {
             if (child.parent == mainHand.transform)
             {
                 if (child.CompareTag("Gun"))
                 {
-                    Gun gunScript = child.GetComponent<Gun>();
+                    gunScript = child.GetComponent<Gun>();
                     if (gunScript != null)
                     {
                         gunScript.enabled = true;
@@ -116,6 +148,8 @@ public class Pickup : MonoBehaviour
             handAnimator.SetBool("idle", true);
         }
 
+        
+
 
         canSwitch = !switchCooldown;
 
@@ -157,6 +191,8 @@ public class Pickup : MonoBehaviour
                         collider.GetComponent<Gun>().playerMovement = playerMovement;
                         collider.GetComponent<Gun>().aim = aimTransform;
                         collider.GetComponent<Gun>().ammoManager = ammoManager;
+
+                        timeToReload = collider.GetComponent<Gun>().timeToReload;
                     } else {
                         collider.GetComponent<Melee>().playerMovement = playerMovement;
                     }
@@ -204,5 +240,24 @@ public class Pickup : MonoBehaviour
         yield return new WaitForSeconds(switchCooldownAmount);
 
         switchCooldown = false;
+    }
+
+    IEnumerator Reload()
+    {
+        reloading = true;
+
+        gunScript.reloading = true;
+
+        yield return new WaitForSeconds(timeToReload);
+
+        ammoManager.ammoAmount--;
+
+        gunScript.Reload();
+
+        gunScript.reloading = false;
+
+        reloading = false;
+        Debug.Log("Reloaded.");
+        
     }
 }

@@ -15,11 +15,14 @@ public class Gun : MonoBehaviour
     public float chargeUp;
     public float Cooldown;
     public int ammoPerMagazine = 30;
+    public float timeToReload = 5f;
     public int currentAmmo;
     public AudioSource shootSource;
     public AudioClip shootClip;
     public  bool canShoot;
     public bool hasAmmo;
+
+    public bool reloading = false;
 
     public bool oneHanded = false;
 
@@ -36,9 +39,13 @@ public class Gun : MonoBehaviour
             transform.localEulerAngles = Vector3.zero;
         }
 
-        hasAmmo = currentAmmo > 0;
+        if(currentAmmo > 0){
+            hasAmmo = true;
+        } else {
+            hasAmmo = false;
+        }
         
-        if(Input.GetKeyDown(playerMovement.shoot) && canShoot && hasAmmo)
+        if(Input.GetKeyDown(playerMovement.shoot) && canShoot && hasAmmo && !reloading)
         {
             currentAmmo--;
             Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation);
@@ -53,5 +60,9 @@ public class Gun : MonoBehaviour
         shootSource.PlayOneShot(shootClip);
         yield return new WaitForSeconds(Cooldown);
         canShoot = true;
+    }
+
+    public void Reload(){
+        currentAmmo = ammoPerMagazine;
     }
 }
