@@ -13,9 +13,11 @@ public class TempEnemy : MonoBehaviour
 
     private GameObject player;
     private float lastAttackTime;
+    public LevelUpScript levelUpScript;
 
     void Start()
     {
+
         lastAttackTime = -attackCooldown;
     }
 
@@ -51,6 +53,7 @@ public class TempEnemy : MonoBehaviour
         else
         {
             Die();
+            levelUpScript.playerEXP = levelUpScript.playerEXP + 50;
         }
     }
 
@@ -67,7 +70,7 @@ public class TempEnemy : MonoBehaviour
 
     void StopMoving()
     {
-        // Customize this function for idle or other non-movement behavior
+        
     }
 
     void AttackPlayer()

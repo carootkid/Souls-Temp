@@ -5,6 +5,7 @@ using UnityEngine;
 public class LevelUpScript : MonoBehaviour
 {
     public int playerLevel = 0;
+    public int levelPoints = 0;
     public int playerEXP = 0;
     private int neededEXP = 100;
     public int EXPincrease = 10;
@@ -16,9 +17,10 @@ public class LevelUpScript : MonoBehaviour
 
     void Update()
     {
-        if(playerEXP == neededEXP + EXPincrease){
+        if(playerEXP >= neededEXP + EXPincrease){
             Debug.Log("leveled UP");
             playerLevel++;
+            levelPoints++;
             EXPincrease = EXPincrease * playerLevel;
         }
     }
