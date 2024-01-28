@@ -85,6 +85,7 @@ public class TempEnemy : MonoBehaviour
     public void TakeDamage(int damageAmount)
     {
         Temphealth -= damageAmount;
+        Debug.Log("Took Damage!");
     }
 
     void Die()

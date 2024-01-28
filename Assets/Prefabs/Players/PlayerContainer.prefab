@@ -100,8 +100,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: 5
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2eb568d5ed7e11f4d8d3f8a491655ad0, type: 2}
+  m_sharedMaterial: {fileID: 5823450706687833188, guid: 2eb568d5ed7e11f4d8d3f8a491655ad0,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -441,6 +442,7 @@ GameObject:
   - component: {fileID: 7479854861171424485}
   - component: {fileID: 6936435776104109720}
   - component: {fileID: 6951786350031606500}
+  - component: {fileID: 4519001329242003676}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -536,7 +538,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.29
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -579,6 +581,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f35571c6defc854abb9d28de2819cb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canDamage: 0
   rollKey: 32
   forward: 119
   right: 100
@@ -589,6 +592,7 @@ MonoBehaviour:
   pickup: 101
   switchWeapons: 113
   shoot: 323
+  reload: 114
   rb: {fileID: 2002740909383647369}
   isGrounded: 0
   sprinting: 0
@@ -627,6 +631,10 @@ MonoBehaviour:
   maxHealth: 100
   healthPotionsText: {fileID: 6104575065632071004}
   healthScrollbar: {fileID: 4618958794203355707}
+  interactRange: 5
+  playerCamera: {fileID: 2759161167499644869}
+  atCampfire: 0
+  playerMovement: {fileID: 7478374748357231634}
 --- !u!114 &6936435776104109720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -645,6 +653,9 @@ MonoBehaviour:
   aimTransform: {fileID: 1296377991203638418}
   pickupRadius: 3
   handAnimator: {fileID: 8312426588705753180}
+  playerHealth: {fileID: 7479854861171424485}
+  ammoManager: {fileID: 4519001329242003676}
+  foundGunOrMelee: 0
 --- !u!114 &6951786350031606500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -667,6 +678,21 @@ MonoBehaviour:
   rotationSpeed: 5
   cameraRotationSpeed: 5
   raycastMaxDistance: 100
+--- !u!114 &4519001329242003676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777840647015844192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 754c4e98df9e3fd49af514d9a1c90af9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ammoAmount: 100
+  maxAmmo: 2
+  ammoText: {fileID: 4650723814193107958}
 --- !u!1 &894228435881042372
 GameObject:
   m_ObjectHideFlags: 0
@@ -1432,13 +1458,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aim: {fileID: 1296377991203638418}
   playerMovement: {fileID: 7478374748357231634}
+  ammoManager: {fileID: 0}
   bulletSpawn: {fileID: 0}
   bullet: {fileID: 0}
   chargeUp: 0
   Cooldown: 0
+  ammoPerMagazine: 30
+  timeToReload: 5
+  currentAmmo: 0
   shootSource: {fileID: 0}
   shootClip: {fileID: 0}
   canShoot: 0
+  hasAmmo: 0
+  reloading: 0
   oneHanded: 0
   gunAnimator: {fileID: 0}
 --- !u!1 &3488413491386306479
@@ -1954,8 +1986,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: 3
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2eb568d5ed7e11f4d8d3f8a491655ad0, type: 2}
+  m_sharedMaterial: {fileID: 5823450706687833188, guid: 2eb568d5ed7e11f4d8d3f8a491655ad0,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
