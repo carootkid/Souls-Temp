@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 305823962713256556}
   - component: {fileID: 6776116531909459647}
   - component: {fileID: 7627382994073237294}
+  - component: {fileID: 5863121704479054415}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: Shotgun Bullets
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3795,7 +3796,7 @@ ParticleSystem:
     m_EnergyLossOnCollision:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.99
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -3854,7 +3855,7 @@ ParticleSystem:
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
-    collisionMessages: 0
+    collisionMessages: 1
     collidesWithDynamic: 1
     interiorCollisions: 0
   TriggerModule:
@@ -4881,3 +4882,21 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &5863121704479054415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3047876644522267847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9e7947daabaaa546b65aa782ecb8b3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemiesLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  hitEffectEnemies: {fileID: 3047876644522267847, guid: 62b72585ee94ce542a9f329e488d48e2,
+    type: 3}
+  attackDamage: 42
