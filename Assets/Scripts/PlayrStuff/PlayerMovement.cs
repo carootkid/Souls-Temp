@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public bool canDamage;
+    private PlayerHealth playerHealth;
     public KeyCode rollKey;
     public KeyCode forward;
     public KeyCode right;
@@ -69,6 +71,8 @@ public class PlayerMovement : MonoBehaviour
         halfFov = playerCam.fieldOfView / 2;
 
         StaminaBar.size = 1f; 
+        playerHealth = GetComponent<PlayerHealth>();
+        canDamage = true;
     }
 
     void Update()
@@ -93,10 +97,10 @@ public class PlayerMovement : MonoBehaviour
 
         speed = Mathf.Lerp(speed, targetSpeed, speedChange * Time.deltaTime);
 
-        if (Input.GetKeyDown(rollKey) && !isRolling && currentStamina >= rollStaminaCost)
+        if (Input.GetKeyDown(rollKey) && !isRolling && currentStamina >= rollStaminaCost &&!playerHealth.atCampfire)
         {
             StartCoroutine(Roll());
-            currentStamina -= rollStaminaCost;  // Consume stamina for rolling
+            currentStamina -= rollStaminaCost;  
         }
 
         if (Input.GetKey(forward))
@@ -135,7 +139,7 @@ public class PlayerMovement : MonoBehaviour
             isBackward = false;
         }
 
-        // Only allow sprinting if not already sprinting and enough stamina is available
+       
         if (Input.GetKey(sprint) && !sprinting && currentStamina >= sprintStaminaCost)
         {
             sprinting = true;
@@ -144,7 +148,7 @@ public class PlayerMovement : MonoBehaviour
         if (!Input.GetKey(sprint) || currentStamina < sprintStaminaCost)
         {
             sprinting = false;
-            sprintTimer = 0f; // Reset sprint timer when not sprinting
+            sprintTimer = 0f;
         }
 
         if (!sprinting)
@@ -153,7 +157,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (regenTimer >= regenInterval)
             {
-                float regenAmount = 1f; // Adjust this value based on your preference
+                float regenAmount = 1f; 
                 currentStamina += Mathf.CeilToInt(regenAmount);
                 currentStamina = Mathf.Clamp(currentStamina, 0, MaxStamina);
                 regenTimer = 0f;
@@ -166,7 +170,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (sprintTimer >= sprintInterval)
             {
-                float sprintStaminaConsumption = 1f; // Adjust this value based on your preference
+                float sprintStaminaConsumption = 1f; 
                 currentStamina -= Mathf.CeilToInt(sprintStaminaConsumption);
                 sprintTimer = 0f;
             }
@@ -177,22 +181,23 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator Roll()
     {
-        if (!isRolling)
+        if (!isRolling && !playerHealth.atCampfire)
         {
             isRolling = true;
             canWalkAnimation = false;
+            canDamage = false;
             legs.SetBool("walking", false);
             rollTimer = 0f;
 
             legs.SetTrigger("roll");
-
+            
             while (rollTimer < rollDuration)
             {
                 rb.AddForce(gunPos.forward * rollForce);
                 rollTimer += Time.deltaTime;
                 yield return null;
             }
-
+            canDamage = true;
             isRolling = false;
             canWalkAnimation = true;
         }
@@ -200,61 +205,64 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (sprinting)
-        {
-            if (rb.velocity.magnitude > sprintSpeed)
+        if(!playerHealth.atCampfire){
+            if (sprinting)
             {
-                rb.velocity = rb.velocity.normalized * sprintSpeed;
+                if (rb.velocity.magnitude > sprintSpeed)
+                {
+                    rb.velocity = rb.velocity.normalized * sprintSpeed;
+                }
             }
-        }
-        else
-        {
-            if (rb.velocity.magnitude > walkSpeed)
+            else
             {
-                rb.velocity = rb.velocity.normalized * walkSpeed;
+                if (rb.velocity.magnitude > walkSpeed)
+                {
+                    rb.velocity = rb.velocity.normalized * walkSpeed;
+                }
             }
-        }
 
-        if (canWalkAnimation)
-        {
-            if (GetComponent<Rigidbody>().velocity.magnitude > 0.4f)
+            if (canWalkAnimation)
             {
-                legs.SetBool("walking", true);
+                if (GetComponent<Rigidbody>().velocity.magnitude > 0.4f)
+                {
+                    legs.SetBool("walking", true);
 
-                if(sprinting){
-                    legs.SetBool("running", true);
-                    legs.SetBool("walking", false);
+                    if(sprinting){
+                        legs.SetBool("running", true);
+                        legs.SetBool("walking", false);
+                    } else {
+                        legs.SetBool("running", false);
+                        legs.SetBool("walking", true);
+                    }
                 } else {
                     legs.SetBool("running", false);
-                    legs.SetBool("walking", true);
+                    legs.SetBool("walking", false);
                 }
-            } else {
-                legs.SetBool("running", false);
-                legs.SetBool("walking", false);
             }
-        }
 
-        playerCam.fieldOfView = Mathf.Lerp(playerCam.fieldOfView, aiming ? halfFov : normalFov, speedChange * Time.deltaTime);
+            playerCam.fieldOfView = Mathf.Lerp(playerCam.fieldOfView, aiming ? halfFov : normalFov, speedChange * Time.deltaTime);
 
-        if (isForward)
-        {
-            rb.AddForce(orientation.forward * speed);
-        }
+            if (isForward)
+            {
+                rb.AddForce(orientation.forward * speed);
+            }
 
-        if (isBackward)
-        {
-            rb.AddForce(orientation.forward * (-speed));
-        }
+            if (isBackward)
+            {
+                rb.AddForce(orientation.forward * (-speed));
+            }
 
-        if (isRight)
-        {
-            rb.AddForce(orientation.right * speed);
-        }
+            if (isRight)
+            {
+                rb.AddForce(orientation.right * speed);
+            }
 
-        if (isLeft)
-        {
-            rb.AddForce(orientation.right * (-speed));
+            if (isLeft)
+            {
+                rb.AddForce(orientation.right * (-speed));
+            } 
         }
+        
     }
 
     void UpdateStaminaBar()

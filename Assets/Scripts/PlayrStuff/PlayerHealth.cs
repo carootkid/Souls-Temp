@@ -16,6 +16,8 @@ public class PlayerHealth : MonoBehaviour
     public Camera playerCamera; 
     public bool atCampfire;
 
+    public PlayerMovement playerMovement;
+
     private void Start()
     {
         currentPotions = maxPotions;
@@ -26,15 +28,18 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        playerHealth -= damage;
-        Debug.Log("Hit");
+        if(playerMovement.canDamage == true){
+            playerHealth -= damage;
+            Debug.Log("Hit");
 
-        if (playerHealth <= 0)
-        {
-            Debug.Log("GONE");
+            if (playerHealth <= 0)
+            {
+                Debug.Log("GONE");
+            }
+
+            UpdateHealthScrollbar();
         }
-
-        UpdateHealthScrollbar();
+        
     }
 
     private void Update()

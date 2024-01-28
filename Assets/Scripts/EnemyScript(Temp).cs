@@ -28,7 +28,7 @@ public class TempEnemy : MonoBehaviour
             if (player != null)
             {
                 float distanceToPlayer = Vector3.Distance(new Vector3(transform.position.x, 0f, transform.position.z),
-                                                          new Vector3(player.transform.position.x, 0f, player.transform.position.z));
+                new Vector3(player.transform.position.x, 0f, player.transform.position.z));
 
                 if (distanceToPlayer <= detectionRange)
                 {
@@ -54,7 +54,7 @@ public class TempEnemy : MonoBehaviour
         }
     }
 
-            void MoveTowardsPlayer(GameObject player, float distanceToPlayer)
+    void MoveTowardsPlayer(GameObject player, float distanceToPlayer)
         {
             if (distanceToPlayer > attackRange)
             {
