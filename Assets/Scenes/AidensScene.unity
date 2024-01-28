@@ -3144,7 +3144,7 @@ GameObject:
   - component: {fileID: 2023859841}
   m_Layer: 0
   m_Name: Campfire
-  m_TagString: Untagged
+  m_TagString: Campfire
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6265,6 +6265,7 @@ MonoBehaviour:
   aimTransform: {fileID: 1296377992112484061}
   pickupRadius: 3
   handAnimator: {fileID: 8312426587601365523}
+  playerHealth: {fileID: 0}
 --- !u!114 &6951786348791951531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6533,6 +6534,8 @@ MonoBehaviour:
   maxHealth: 100
   healthPotionsText: {fileID: 6104575064724258579}
   healthScrollbar: {fileID: 4618958795509610612}
+  interactionRange: 5
+  playerMovement: {fileID: 7478374749534021213}
 --- !u!137 &7511842810807778624
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
