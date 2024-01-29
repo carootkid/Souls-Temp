@@ -7,7 +7,7 @@ public class CampfireScript : MonoBehaviour
     public GameObject playerObject; 
     private PlayerHealth playerHealth;
     public GameObject baseUI;
-    private LevelUpScript levelUpScript; // Make sure to assign this in the Unity Editor or find it during runtime
+    private LevelUpScript levelUpScript; 
     public int healthlevel = 1;
     public int ammolevel = 1;
     public int staminalevel = 1;
@@ -88,7 +88,7 @@ public class CampfireScript : MonoBehaviour
     void ShowRestUI()
     {
         restUI.SetActive(true);
-        Debug.Log("Player entered rest mode at the campfire.");
+        
     }
 
     void HideRestUI()
