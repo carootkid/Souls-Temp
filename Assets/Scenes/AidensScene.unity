@@ -916,6 +916,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 972072865}
+        m_TargetAssemblyTypeName: HurtEnemy, Assembly-CSharp
+        m_MethodName: strengthIncrease
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &731380590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1088,6 +1100,84 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 807021209}
   m_CullTransparentMesh: 1
+--- !u!1001 &821225758
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 481282106609024419, guid: e581b06b70df45e498232c2cdf524b04,
+        type: 3}
+      propertyPath: levelUpScript
+      value: 
+      objectReference: {fileID: 7479854861350203010}
+    - target: {fileID: 481282106609024419, guid: e581b06b70df45e498232c2cdf524b04,
+        type: 3}
+      propertyPath: campfireScript
+      value: 
+      objectReference: {fileID: 2023859845}
+    - target: {fileID: 5613947740617562332, guid: e581b06b70df45e498232c2cdf524b04,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -14.394731
+      objectReference: {fileID: 0}
+    - target: {fileID: 5613947740617562332, guid: e581b06b70df45e498232c2cdf524b04,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.4505243
+      objectReference: {fileID: 0}
+    - target: {fileID: 5613947740617562332, guid: e581b06b70df45e498232c2cdf524b04,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -26.790512
+      objectReference: {fileID: 0}
+    - target: {fileID: 5613947740617562332, guid: e581b06b70df45e498232c2cdf524b04,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5613947740617562332, guid: e581b06b70df45e498232c2cdf524b04,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5613947740617562332, guid: e581b06b70df45e498232c2cdf524b04,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5613947740617562332, guid: e581b06b70df45e498232c2cdf524b04,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5613947740617562332, guid: e581b06b70df45e498232c2cdf524b04,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5613947740617562332, guid: e581b06b70df45e498232c2cdf524b04,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5613947740617562332, guid: e581b06b70df45e498232c2cdf524b04,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5698940790232772694, guid: e581b06b70df45e498232c2cdf524b04,
+        type: 3}
+      propertyPath: m_Name
+      value: MeleeTemplate
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e581b06b70df45e498232c2cdf524b04, type: 3}
 --- !u!1 &925556383
 GameObject:
   m_ObjectHideFlags: 0
@@ -1327,6 +1417,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 956325337}
   m_CullTransparentMesh: 1
+--- !u!114 &972072865 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 481282106609024419, guid: e581b06b70df45e498232c2cdf524b04,
+    type: 3}
+  m_PrefabInstance: {fileID: 821225758}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 644c20789cd8aaf4b9bb3681be6dce30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1024516649
 GameObject:
   m_ObjectHideFlags: 0
@@ -2398,6 +2500,18 @@ MonoBehaviour:
       - m_Target: {fileID: 2023859845}
         m_TargetAssemblyTypeName: CampfireScript, Assembly-CSharp
         m_MethodName: increaseAmmo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4519001329177512632}
+        m_TargetAssemblyTypeName: AmmoManager, Assembly-CSharp
+        m_MethodName: ammoLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5929,6 +6043,8 @@ MonoBehaviour:
   ammoAmount: 100
   maxAmmo: 2
   ammoText: {fileID: 4650723813979718034}
+  levelUpScript: {fileID: 7479854861350203010}
+  campfireScript: {fileID: 2023859845}
 --- !u!114 &4618958794417784927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6886,6 +7002,7 @@ MonoBehaviour:
   playerHealth: {fileID: 7479854861350203009}
   ammoManager: {fileID: 4519001329177512632}
   foundGunOrMelee: 0
+  meleeManager: {fileID: 0}
 --- !u!114 &6951786349860159616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7737,3 +7854,4 @@ SceneRoots:
   - {fileID: 2023859844}
   - {fileID: 4246413479141064802}
   - {fileID: 1990940398}
+  - {fileID: 821225758}
