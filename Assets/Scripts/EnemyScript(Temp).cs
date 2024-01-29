@@ -93,6 +93,6 @@ public class TempEnemy : MonoBehaviour
 
     void Die()
     {
-        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 }
