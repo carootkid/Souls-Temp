@@ -165,8 +165,16 @@ public class PlayerHealth : MonoBehaviour
     {
         if (healthScrollbar != null)
         {
-            float healthPercentage = playerHealth / maxHealth;
-            healthScrollbar.size = healthPercentage;
+            if (maxHealth > 0)
+            {
+                int healthPercentage = (int)((float)playerHealth / maxHealth * 100);
+                healthScrollbar.size = healthPercentage / 100f;
+            }
+            else
+            {
+            
+                healthScrollbar.size = 0f;
+            }
         }
     }
 }

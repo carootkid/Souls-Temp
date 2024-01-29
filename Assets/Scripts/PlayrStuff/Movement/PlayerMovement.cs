@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isGrounded;
     public bool sprinting;
     public bool aiming;
+    private int staminaStat;
     public Transform orientation;
     public Transform gunPos;
     public float speed = 10f;
@@ -48,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isRight;
     private bool isLeft;
 
-    private int MaxStamina = 100;
+    public int MaxStamina = 100;
     public int currentStamina = 100;
     public int sprintStaminaCost = 5;
     public int rollStaminaCost = 25;
@@ -61,6 +62,8 @@ public class PlayerMovement : MonoBehaviour
 
     private float sprintTimer = 0f;
     public float sprintInterval = 1f;
+    public CampfireScript campfireScript;
+    public LevelUpScript levelUpScript;
 
 
     private void Start()
@@ -178,6 +181,30 @@ public class PlayerMovement : MonoBehaviour
         }
 
         UpdateStaminaBar();
+    }
+
+    public void levelStamina()
+    {
+        if (campfireScript != null)
+        {
+            staminaStat = campfireScript.staminalevel;
+
+            if (staminaStat >= 0 && levelUpScript.levelPoints > 0)
+            {
+                MaxStamina = MaxStamina + staminaStat * 10;
+                currentStamina = MaxStamina;
+                Debug.Log("Health increased. New Max Health: " + MaxStamina);
+                UpdateStaminaBar();
+            }
+            else
+            {
+                Debug.LogError("Invalid staminaStat value in CampfireScript: " + staminaStat);
+            }
+        }
+        else
+        {
+            Debug.LogError("campfireScript is not assigned.");
+        }
     }
 
     IEnumerator Roll()
