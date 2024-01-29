@@ -8,16 +8,18 @@ public class PlayerHealth : MonoBehaviour
 {
     public int maxPotions;
     public int currentPotions;
-    public float playerHealth = 100f;
-    public float maxHealth = 100f;
+    private int healthIncrease;
+    public int playerHealth = 100;
+    public int maxHealth = 100;
     public TextMeshProUGUI healthPotionsText;
     public Scrollbar healthScrollbar;
     public float interactRange = 5f;
     public Camera playerCamera; 
     public bool atCampfire;
     public LevelUpScript levelUpScript;
-
+    public CampfireScript campfireScript;
     public PlayerMovement playerMovement;
+    private int healthStat;
 
 
     private void Start()
@@ -28,7 +30,7 @@ public class PlayerHealth : MonoBehaviour
         atCampfire = false;
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
         if(playerMovement.canDamage == true){
             playerHealth -= damage;
@@ -47,7 +49,7 @@ public class PlayerHealth : MonoBehaviour
     {
         UpdateHealthScrollbar();
         UpdateHealthPotionsText();
-        
+
 
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -60,7 +62,7 @@ public class PlayerHealth : MonoBehaviour
         }
        
     }
-
+    
     void InteractWithCampfire()
     {
         if (playerCamera == null)
@@ -110,11 +112,35 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthScrollbar();
     }
 
+    public void levelHealth()
+    {
+        if (campfireScript != null)
+        {
+            int healthStat = campfireScript.healthlevel;
+
+            if (healthStat >= 0 && levelUpScript.levelPoints > 0)
+            {
+                maxHealth = maxHealth + healthStat * 10;
+                playerHealth = maxHealth;
+                Debug.Log("Health increased. New Max Health: " + maxHealth);
+                UpdateHealthScrollbar();
+            }
+            else
+            {
+                Debug.LogError("Invalid healthStat value in CampfireScript: " + healthStat);
+            }
+        }
+        else
+        {
+            Debug.LogError("campfireScript is not assigned.");
+        }
+    }
+
     void UseHealingPotion()
     {
         if (currentPotions > 0)
         {
-            playerHealth += 20f;
+            playerHealth += 20;
             currentPotions--;
 
             playerHealth = Mathf.Min(playerHealth, maxHealth);
@@ -144,4 +170,3 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 }
-
