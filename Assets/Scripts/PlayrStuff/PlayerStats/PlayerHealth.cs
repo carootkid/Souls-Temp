@@ -87,11 +87,13 @@ public class PlayerHealth : MonoBehaviour
                     atCampfire = true;
                     RestoreHealthPotions();
                     RestoreHealth();
+                    playerMovement.legs.SetBool("Sitting", atCampfire);
 
                 }
                 else
                 {
                     atCampfire = false;
+                    playerMovement.legs.SetBool("Sitting", atCampfire);
                 }
 
                 
