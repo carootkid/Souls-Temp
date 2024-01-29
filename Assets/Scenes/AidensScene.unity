@@ -906,7 +906,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2023859845}
         m_TargetAssemblyTypeName: CampfireScript, Assembly-CSharp
-        m_MethodName: increaseStength
+        m_MethodName: increaseStrength
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3157,6 +3157,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7478374748419626614}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: levelStamina
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1761356358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4051,6 +4063,18 @@ MonoBehaviour:
       - m_Target: {fileID: 2023859845}
         m_TargetAssemblyTypeName: CampfireScript, Assembly-CSharp
         m_MethodName: increaseHealth
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7479854861350203009}
+        m_TargetAssemblyTypeName: PlayerHealth, Assembly-CSharp
+        m_MethodName: levelHealth
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7099,12 +7123,15 @@ MonoBehaviour:
   rollForce: 25
   rollDuration: 0.5
   legs: {fileID: 662197837169972493}
+  MaxStamina: 100
   currentStamina: 100
   sprintStaminaCost: 5
   rollStaminaCost: 25
   StaminaBar: {fileID: 5727742749545519200}
   regenInterval: 0.1
   sprintInterval: 0.1
+  campfireScript: {fileID: 2023859845}
+  levelUpScript: {fileID: 7479854861350203010}
 --- !u!114 &7479854861350203009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7127,6 +7154,7 @@ MonoBehaviour:
   playerCamera: {fileID: 2759161167703596449}
   atCampfire: 0
   levelUpScript: {fileID: 7479854861350203010}
+  campfireScript: {fileID: 2023859845}
   playerMovement: {fileID: 7478374748419626614}
 --- !u!114 &7479854861350203010
 MonoBehaviour:
@@ -7142,7 +7170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerLevel: 0
   levelPoints: 0
-  playerEXP: 0
+  playerEXP: 418
   EXPincrease: 10
 --- !u!137 &7511842811855015275
 SkinnedMeshRenderer:
