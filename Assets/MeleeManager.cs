@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class MeleeManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public Melee melee;
+
+    public void EnableCollider(){
+        melee.EnableCollider();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void DisableCollider(){
+        melee.DisableCollider();
     }
 }

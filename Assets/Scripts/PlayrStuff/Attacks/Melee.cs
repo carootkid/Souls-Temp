@@ -26,9 +26,11 @@ public class Melee : MonoBehaviour
 
     public void EnableCollider(){
         attackCollider.enabled = true;
+        Debug.Log("Enabled Collider");
     }
 
     public void DisableCollider(){
         attackCollider.enabled = false;
+        Debug.Log("Disabled Collider");
     }
 }

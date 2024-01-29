@@ -29,6 +29,8 @@ public class Pickup : MonoBehaviour
 
     private Gun gunScript;
 
+    public MeleeManager meleeManager;
+
     void Update()
     {
 
@@ -132,6 +134,8 @@ public class Pickup : MonoBehaviour
                     Melee meleeScript = child.GetComponent<Melee>();
 
                     meleeScript.enabled = true;
+
+                    meleeManager.melee = meleeScript;
 
                     if(meleeScript != null){
                         if(meleeScript.spear){
