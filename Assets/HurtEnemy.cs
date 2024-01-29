@@ -54,7 +54,7 @@ public class HurtEnemy : MonoBehaviour
 
             if (dmgStat >= 0 && levelUpScript.levelPoints > 0)
             {
-                attackDamage = dmgIncrease * dmgStat;
+                attackDamage = attackDamage + dmgIncrease * dmgStat;
                 attackDamage = attackDamage;
                 Debug.Log("strength increased. New damafge: " + attackDamage);
             }
