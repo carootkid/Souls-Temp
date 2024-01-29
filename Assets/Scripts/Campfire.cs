@@ -11,7 +11,7 @@ public class CampfireScript : MonoBehaviour
     public int healthlevel = 1;
     public int ammolevel = 1;
     public int staminalevel = 1;
-    public int strengthlevel = 1;
+    public float strengthlevel = 1;
 
     private void Start()
     {

@@ -7,6 +7,10 @@ public class HurtEnemy : MonoBehaviour
     public LayerMask enemyLayer;
     
     public GameObject hitEffectEnemies;
+    public LevelUpScript levelUpScript;
+    public CampfireScript campfireScript;
+    private float dmgStat;
+    private float dmgIncrease = 1.01f;
     
     public float attackDamage = 25f;
     void OnTriggerEnter(Collider other)
@@ -40,5 +44,28 @@ public class HurtEnemy : MonoBehaviour
         Quaternion rotation = Quaternion.LookRotation(normal);
 
         Instantiate(effectPrefab, position, rotation);
+    }
+
+    public void strengthIncrease()
+    {
+        if (campfireScript != null)
+        {
+            dmgStat = campfireScript.strengthlevel;
+
+            if (dmgStat >= 0 && levelUpScript.levelPoints > 0)
+            {
+                attackDamage = dmgIncrease * dmgStat;
+                attackDamage = attackDamage;
+                Debug.Log("strength increased. New damafge: " + attackDamage);
+            }
+            else
+            {
+                Debug.LogError("Invalid ammo stat value in CampfireScript: " + dmgStat);
+            }
+        }
+        else
+        {
+            Debug.LogError("campfireScript is not assigned.");
+        }
     }
 }
