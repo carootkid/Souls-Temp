@@ -1,15 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Gun : MonoBehaviour
 {
     public Transform aim;
-
     public PlayerMovement playerMovement;
-
     public AmmoManager ammoManager;
-
     public Transform bulletSpawn;
     public GameObject bullet;
     public float chargeUp;
@@ -19,38 +16,48 @@ public class Gun : MonoBehaviour
     public int currentAmmo;
     public AudioSource shootSource;
     public AudioClip shootClip;
-    public  bool canShoot;
+    public bool canShoot;
     public bool hasAmmo;
-
     public bool reloading = false;
-
     public bool oneHanded = false;
-
     public Animator gunAnimator;
 
-    private void Start() {
+     public Scrollbar ammoScrollbar;
+
+    private void Start()
+    {
         canShoot = true;
+        UpdateAmmoUI();
     }
 
-    private void Update() {
-        if(playerMovement.aiming){
+
+    private void Update()
+    {
+        if (playerMovement.aiming)
+        {
             transform.LookAt(aim);
-        } else {
+        }
+        else
+        {
             transform.localEulerAngles = Vector3.zero;
         }
 
-        if(currentAmmo > 0){
+        if (currentAmmo > 0)
+        {
             hasAmmo = true;
-        } else {
+        }
+        else
+        {
             hasAmmo = false;
         }
-        
-        if(Input.GetKeyDown(playerMovement.shoot) && canShoot && hasAmmo && !reloading)
+
+        if (Input.GetKeyDown(playerMovement.shoot) && canShoot && hasAmmo && !reloading)
         {
             currentAmmo--;
             Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation);
             gunAnimator.SetTrigger("Shoot");
             StartCoroutine(StartCooldown());
+            UpdateAmmoUI();
         }
     }
 
@@ -62,7 +69,17 @@ public class Gun : MonoBehaviour
         canShoot = true;
     }
 
-    public void Reload(){
+    public void Reload()
+    {
         currentAmmo = ammoPerMagazine;
+        UpdateAmmoUI();
+    }
+
+    private void UpdateAmmoUI()
+    {
+        if (ammoScrollbar != null)
+        {
+            ammoScrollbar.size = (float)currentAmmo / ammoPerMagazine;
+        }
     }
 }
