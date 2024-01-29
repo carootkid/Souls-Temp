@@ -64,6 +64,12 @@ public class Pickup : MonoBehaviour
         if (Input.GetKeyDown(playerMovement.switchWeapons) && canSwitch && !reloading)
         {
             handAnimator.SetTrigger("Switch");
+
+            handAnimator.SetBool("idle", true);
+            handAnimator.SetBool("OneHanded", false);
+            handAnimator.SetBool("light", false);
+            handAnimator.SetBool("heavy", false);
+            handAnimator.SetBool("spear", false);
             Transform[] mainHandChildren = mainHand.GetComponentsInChildren<Transform>(true);
             Transform[] secondHandChildren = secondHand.GetComponentsInChildren<Transform>(true);
 
@@ -109,11 +115,13 @@ public class Pickup : MonoBehaviour
                         if (gunScript.oneHanded)
                         {
                             handAnimator.SetBool("OneHanded", true);
+                            handAnimator.SetBool("isGun", true);
                             handAnimator.SetBool("idle", false);
                         }
                         else
                         {
                             handAnimator.SetBool("OneHanded", false);
+                            handAnimator.SetBool("isGun", true);
                             handAnimator.SetBool("idle", false);
                         }
                         foundGunOrMelee = true;
@@ -122,9 +130,24 @@ public class Pickup : MonoBehaviour
                 else if (child.CompareTag("Melee"))
                 {
                     Melee meleeScript = child.GetComponent<Melee>();
-                    if (meleeScript != null)
-                    {
-                        meleeScript.enabled = true;
+
+                    meleeScript.enabled = true;
+
+                    if(meleeScript != null){
+                        if(meleeScript.spear){
+                            handAnimator.SetBool("isGun", false);
+                            handAnimator.SetBool("spear", true);
+                            handAnimator.SetBool("idle", false);
+                        } else if(meleeScript.light){
+                            handAnimator.SetBool("isGun", false);
+                            handAnimator.SetBool("light", true);
+                            handAnimator.SetBool("idle", false);
+                        } else if(meleeScript.heavy){
+                            handAnimator.SetBool("isGun", false);
+                            handAnimator.SetBool("heavy", true);
+                            handAnimator.SetBool("idle", false);
+                        }
+                        
                         foundGunOrMelee = true;
                     }
                 }
@@ -194,7 +217,9 @@ public class Pickup : MonoBehaviour
 
                         timeToReload = collider.GetComponent<Gun>().timeToReload;
                     } else {
-                        collider.GetComponent<Melee>().playerMovement = playerMovement;
+                        Melee meleeScript = collider.GetComponent<Melee>();
+                        meleeScript.playerMovement = playerMovement;
+                        meleeScript.animator = handAnimator;
                     }
             }
             else if (collider.CompareTag("Pickup"))

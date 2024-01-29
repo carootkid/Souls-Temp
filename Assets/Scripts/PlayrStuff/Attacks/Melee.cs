@@ -6,66 +6,21 @@ public class Melee : MonoBehaviour
 {
     public PlayerMovement playerMovement;
     public bool spear = false;
-    public bool swordAxeLight = false;
-    public bool swordAxeHeavy = false;
-    public bool blunt = false;
+    public bool light = false;
+    public bool heavy = false;
     public Collider attackCollider;
-
-    public Animator meleeAnimator;
+    public Animator animator;
 
     void Start()
     {
-        if(spear)
-        {
-            meleeAnimator.SetBool("spear", true);
-        } else if(swordAxeLight)
-        {
-            meleeAnimator.SetBool("light", true);
-        } else if(swordAxeHeavy)
-        {
-            meleeAnimator.SetBool("heavy", true);
-        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        // if(spear)
-        // {
-        //     Debug.Log("SPEAR");
-        //     if(Input.GetKeyDown(playerMovement.shoot))
-        //     {
-        //         meleeAnimator.SetBool("Charge", true);
-        //         Debug.Log("Charging..");
-        //     } 
-        //     else if(Input.GetKeyUp(playerMovement.shoot))
-        //     {
-                
-        //         meleeAnimator.SetTrigger("spearAttack");
-        //         meleeAnimator.SetBool("spearCharge", false);
-        //         Debug.Log("attacked");
-        //     }
-        // } else if(swordAxeLight)
-        // {
-        //     Debug.Log("LIGHT SWORD/AXE");
-        // } else if(swordAxeHeavy)
-        // {
-        //     Debug.Log("HEAVY SWORD/AXE");
-        // } else if(blunt)
-        // {
-        //     Debug.Log("BLUNT");
-        // } 
-
-        if(Input.GetKeyDown(playerMovement.shoot))
-        {
-            meleeAnimator.SetBool("Charge", true);
-            Debug.Log("Charging..");
-        } 
-        else if(Input.GetKeyUp(playerMovement.shoot))
-        {
-            meleeAnimator.SetTrigger("Attack");
-            meleeAnimator.SetBool("Charge", false);
-            Debug.Log("attacked");
+        if(Input.GetKeyDown(playerMovement.shoot)){
+            animator.SetTrigger("lightAttack");
         }
     }
 
