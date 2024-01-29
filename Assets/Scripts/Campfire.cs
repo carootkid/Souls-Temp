@@ -7,7 +7,7 @@ public class CampfireScript : MonoBehaviour
     public GameObject playerObject; 
     private PlayerHealth playerHealth;
     public GameObject baseUI;
-    private LevelUpScript levelUpScript;
+    private LevelUpScript levelUpScript; // Make sure to assign this in the Unity Editor or find it during runtime
     public int healthlevel = 1;
     public int ammolevel = 1;
     public int staminalevel = 1;
@@ -17,6 +17,7 @@ public class CampfireScript : MonoBehaviour
     {
         restUI.SetActive(false);
         FindPlayerHealth();
+        FindLevelUpScript();
     }
 
     private void FindPlayerHealth()
@@ -37,6 +38,17 @@ public class CampfireScript : MonoBehaviour
         else
         {
             Debug.LogError("Player GameObject not assigned in the Unity Editor!");
+        }
+    }
+
+    private void FindLevelUpScript()
+    {
+
+        levelUpScript = GameObject.FindObjectOfType<LevelUpScript>();
+
+        if (levelUpScript == null)
+        {
+            Debug.LogError("LevelUpScript component not found in the scene!");
         }
     }
 
@@ -86,33 +98,40 @@ public class CampfireScript : MonoBehaviour
 
     public void increaseHealth()
     {
-        if(levelUpScript.levelPoints >= 1 && healthlevel <= 50)
+        if (levelUpScript != null && levelUpScript.levelPoints >= 1 && healthlevel <= 50)
         {
             healthlevel++;
+            levelUpScript.levelPoints--;
             Debug.Log("leveled health");
         }
     }
+
     public void increaseAmmo()
     {
-        if(levelUpScript.levelPoints >= 1 && ammolevel <= 50)
+        if (levelUpScript != null && levelUpScript.levelPoints >= 1 && ammolevel <= 50)
         {
             ammolevel++;
+            levelUpScript.levelPoints--;
             Debug.Log("leveled Ammo");
         }
     }
-    public void increaseStength()
+
+    public void increaseStrength()
     {
-        if(levelUpScript.levelPoints >= 1 && strengthlevel <= 50)
+        if (levelUpScript != null && levelUpScript.levelPoints >= 1 && strengthlevel <= 50)
         {
             strengthlevel++;
+            levelUpScript.levelPoints--;
             Debug.Log("leveled strength");
         }
     }
+
     public void increaseStamina()
     {
-        if(levelUpScript.levelPoints >= 1 && staminalevel <= 50)
+        if (levelUpScript != null && levelUpScript.levelPoints >= 1 && staminalevel <= 50)
         {
             staminalevel++;
+            levelUpScript.levelPoints--;
             Debug.Log("leveled stamina");
         }
     }
