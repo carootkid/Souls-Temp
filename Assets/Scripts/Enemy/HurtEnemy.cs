@@ -52,7 +52,7 @@ public class HurtEnemy : MonoBehaviour
         {
             dmgStat = campfireScript.strengthlevel;
 
-            if (dmgStat >= 0 && levelUpScript.levelPoints > 0)
+            if (levelUpScript.levelPoints > 0)
             {
                 attackDamage = attackDamage + dmgIncrease * dmgStat;
                 attackDamage = attackDamage;
