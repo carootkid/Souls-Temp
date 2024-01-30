@@ -195,7 +195,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.24123798, y: 0.482564, z: -0.20392539, w: 0.8169154}
   m_LocalPosition: {x: 0.125, y: -0.231, z: -0.3041191}
-  m_LocalScale: {x: -0.8566318, y: 0.11715103, z: 0.1384826}
+  m_LocalScale: {x: 0.8, y: 0.11715103, z: 0.1384826}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5483896034927391880}
@@ -513,7 +513,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.8567603, y: 0.2612344, z: -0.37419176, w: 0.24020576}
   m_LocalPosition: {x: 0.15, y: -0.31099993, z: 0.154}
-  m_LocalScale: {x: -0.8566318, y: 0.11715103, z: 0.1384826}
+  m_LocalScale: {x: 0.8, y: 0.11715103, z: 0.1384826}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5483896034927391880}
@@ -950,7 +950,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.26425087, y: 0.87762123, z: 0.10948959, w: -0.38466138}
   m_LocalPosition: {x: -0.141, y: -0.31099993, z: 0.131}
-  m_LocalScale: {x: -0.8566318, y: 0.11715103, z: 0.1384826}
+  m_LocalScale: {x: 0.8, y: 0.11715103, z: 0.1384826}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5483896034927391880}
@@ -1642,6 +1642,7 @@ GameObject:
   - component: {fileID: 3347303612265517780}
   - component: {fileID: 5769802650100936506}
   - component: {fileID: 5310559821842447509}
+  - component: {fileID: 7900180796228978772}
   m_Layer: 0
   m_Name: Campfire
   m_TagString: Campfire
@@ -1735,12 +1736,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.0122551, y: 1, z: 1}
+  m_Center: {x: -0.0061275363, y: 0, z: 0}
 --- !u!114 &5310559821842447509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1760,6 +1761,27 @@ MonoBehaviour:
   ammolevel: 1
   staminalevel: 1
   strengthlevel: 1
+--- !u!65 &7900180796228978772
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7447322898726983798}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.0171177, y: 1, z: 1.8567619}
+  m_Center: {x: -0.03206098, y: 0, z: -0.026115417}
 --- !u!1 &7492342435558546383
 GameObject:
   m_ObjectHideFlags: 0
@@ -1872,7 +1894,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.38619596, y: 0.8081703, z: 0.3477491, w: 0.277099}
   m_LocalPosition: {x: -0.156, y: -0.36, z: -0.187}
-  m_LocalScale: {x: -0.8566318, y: 0.11715103, z: 0.1384826}
+  m_LocalScale: {x: 0.8, y: 0.11715103, z: 0.1384826}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5483896034927391880}

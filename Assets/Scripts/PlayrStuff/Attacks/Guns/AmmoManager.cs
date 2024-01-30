@@ -14,15 +14,18 @@ public class AmmoManager : MonoBehaviour
 
     public LevelUpScript levelUpScript;
     public CampfireScript campfireScript;
+    private PlayerHealth playerHealth;
     private void Update()
     {
         ammoText.text = "" + ammoAmount;
+        
 
         if(ammoAmount > maxAmmo)
         {
             ammoAmount = maxAmmo;
         }
     }
+   
     public void ammoLevel()
     {
         if (campfireScript != null)
@@ -31,9 +34,9 @@ public class AmmoManager : MonoBehaviour
 
             if (ammoStat >= 0 && levelUpScript.levelPoints > 0)
             {
-                maxAmmo = maxAmmo + ammoStat * 1;
-                ammoAmount = maxAmmo;
-                Debug.Log("Health increased. New Max Health: " + maxAmmo);
+                ammoAmount = ammoAmount + ammoStat * 1;
+                ammoAmount = ammoAmount;
+                Debug.Log("Health increased. New Max Health: " + ammoAmount);
             }
             else
             {
