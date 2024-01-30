@@ -1090,12 +1090,12 @@ MonoBehaviour:
   Temphealth: 50
   moveSpeed: 5
   detectionRange: 10
-  attackRange: 3
+  attackRange: 1.75
   damageAmount: 10
   attackCooldown: 2
   levelUpScript: {fileID: 0}
-  enemyAnimator: {fileID: 0}
-  attackCollider: {fileID: 0}
+  enemyAnimator: {fileID: 709950548}
+  attackCollider: {fileID: 2132907842}
 --- !u!65 &709950551
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3202,9 +3202,9 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.0009513077, y: 0.0023053088, z: 0.0011980612}
   m_Center: {x: -0.000041575902, y: 0.0008215086, z: -0.0000018596392}

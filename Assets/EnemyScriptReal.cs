@@ -69,13 +69,12 @@ public class EnemyScriptReal : MonoBehaviour
                 transform.Translate(direction * moveSpeed * Time.deltaTime, Space.World);
                 transform.LookAt(playerPosition);
             } else {
-                enemyAnimator.SetBool("idle", true);
             }
         }
 
     void StopMoving()
     {
-        
+        enemyAnimator.SetBool("idle", true);
     }
 
     void AttackPlayer()
@@ -92,5 +91,15 @@ public class EnemyScriptReal : MonoBehaviour
     void Die()
     {
         Destroy(gameObject);
+    }
+
+    public void EnableCollider()
+    {
+        attackCollider.enabled = true;
+    }
+
+    public void DisableCollider()
+    {
+        attackCollider.enabled = true;
     }
 }
