@@ -193,7 +193,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 MaxStamina = MaxStamina + staminaStat * 10;
                 currentStamina = MaxStamina;
-                Debug.Log("Health increased. New Max Health: " + MaxStamina);
+                Debug.Log("Health increased. New Max Stamina: " + MaxStamina);
                 UpdateStaminaBar();
             }
             else
