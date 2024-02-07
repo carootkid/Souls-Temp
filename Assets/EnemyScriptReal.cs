@@ -105,7 +105,7 @@ public class EnemyScriptReal : MonoBehaviour
 
     public void DisableCollider()
     {
-        attackCollider.enabled = true;
+        attackCollider.enabled = false;
         alreadyHit = false;
     }
 }
