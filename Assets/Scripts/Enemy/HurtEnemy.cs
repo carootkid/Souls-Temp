@@ -56,7 +56,7 @@ public class HurtEnemy : MonoBehaviour
             {
                 attackDamage = attackDamage + dmgIncrease * dmgStat;
                 attackDamage = attackDamage;
-                Debug.Log("strength increased. New damafge: " + attackDamage);
+                Debug.Log("strength increased. New damage: " + attackDamage);
             }
             else
             {

@@ -36,7 +36,7 @@ public class AmmoManager : MonoBehaviour
             {
                 ammoAmount = ammoAmount + ammoStat * 1;
                 ammoAmount = ammoAmount;
-                Debug.Log("Health increased. New Max Health: " + ammoAmount);
+                Debug.Log("Ammo increased. New Max Ammo: " + ammoAmount);
             }
             else
             {
