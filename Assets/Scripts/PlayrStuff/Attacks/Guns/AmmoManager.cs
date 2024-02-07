@@ -1,4 +1,4 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -34,9 +34,9 @@ public class AmmoManager : MonoBehaviour
 
             if (ammoStat >= 0 && levelUpScript.levelPoints > 0)
             {
-                ammoAmount = ammoAmount + ammoStat * 1;
-                ammoAmount = ammoAmount;
-                Debug.Log("Ammo increased. New Max Ammo: " + ammoAmount);
+                maxAmmo = maxAmmo + ammoStat * 1;
+                ammoAmount = maxAmmo;
+                Debug.Log("Ammo increased. New Max Ammo: " + maxAmmo);
             }
             else
             {
