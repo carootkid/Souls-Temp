@@ -1090,12 +1090,14 @@ MonoBehaviour:
   Temphealth: 50
   moveSpeed: 5
   detectionRange: 10
-  attackRange: 1.75
+  attackRange: 1.5
   damageAmount: 10
   attackCooldown: 2
+  hurtPlayer: {fileID: 2132907843}
   levelUpScript: {fileID: 0}
   enemyAnimator: {fileID: 709950548}
   attackCollider: {fileID: 2132907842}
+  alreadyHit: 0
 --- !u!65 &709950551
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1833,78 +1835,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAmmo: 1
   amount: 1
---- !u!1 &1466317144
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1466317147}
-  - component: {fileID: 1466317146}
-  - component: {fileID: 1466317145}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1466317145
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1466317144}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05ccabd2a1c5cc34cbcf48b7ed232553, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  hitEffectPlayer: {fileID: 3047876644522267847, guid: 62b72585ee94ce542a9f329e488d48e2,
-    type: 3}
-  attackDamage: 25
---- !u!65 &1466317146
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1466317144}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 7.7816463, y: 5.58432, z: 1}
-  m_Center: {x: 0.37715554, y: 2.2921605, z: 0}
---- !u!4 &1466317147
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1466317144}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.63, y: 0, z: -11.2}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1467359669
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3206,8 +3136,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 0.0009513077, y: 0.0023053088, z: 0.0011980612}
-  m_Center: {x: -0.000041575902, y: 0.0008215086, z: -0.0000018596392}
+  m_Size: {x: 0.0019736467, y: 0.002548945, z: 0.0018908959}
+  m_Center: {x: -0.00008449413, y: 0.00094332633, z: -0.00007654324}
 --- !u!114 &2132907843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3226,6 +3156,7 @@ MonoBehaviour:
   hitEffectPlayer: {fileID: 3047876644522267847, guid: 62b72585ee94ce542a9f329e488d48e2,
     type: 3}
   attackDamage: 25
+  enemyScriptReal: {fileID: 709950549}
 --- !u!4 &543450652978331838
 Transform:
   m_ObjectHideFlags: 0
@@ -3804,4 +3735,3 @@ SceneRoots:
   - {fileID: 1763093154}
   - {fileID: 139845832}
   - {fileID: 709950546}
-  - {fileID: 1466317147}

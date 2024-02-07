@@ -9,9 +9,11 @@ public class HurtPlayer : MonoBehaviour
     public GameObject hitEffectPlayer;
     
     public int attackDamage = 25;
+
+    public EnemyScriptReal enemyScriptReal;
     void OnTriggerEnter(Collider other)
     {
-        if (((1 << other.gameObject.layer) & playerLayer) != 0)
+        if (enemyScriptReal.alreadyHit == false && ((1 << other.gameObject.layer) & playerLayer) != 0)
         {
             Vector3 hitPoint = other.transform.position;
             Vector3 hitNormal = other.transform.forward;
@@ -32,6 +34,7 @@ public class HurtPlayer : MonoBehaviour
             other.SendMessage("TakeDamage", attackDamage, SendMessageOptions.DontRequireReceiver);
 
             Debug.Log("Hit Player");
+            enemyScriptReal.alreadyHit = true;
             
         }
 

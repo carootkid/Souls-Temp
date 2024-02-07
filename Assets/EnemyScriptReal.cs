@@ -11,11 +11,15 @@ public class EnemyScriptReal : MonoBehaviour
     public int damageAmount = 10;
     public float attackCooldown = 2f;
 
+    public HurtPlayer hurtPlayer;
+
     private GameObject player;
     private float lastAttackTime;
     public LevelUpScript levelUpScript;
     public Animator enemyAnimator;
     public Collider attackCollider;
+
+    public bool alreadyHit = false;
 
     void Start()
     {
@@ -69,6 +73,7 @@ public class EnemyScriptReal : MonoBehaviour
                 transform.Translate(direction * moveSpeed * Time.deltaTime, Space.World);
                 transform.LookAt(playerPosition);
             } else {
+                enemyAnimator.SetBool("idle", true);
             }
         }
 
@@ -101,5 +106,6 @@ public class EnemyScriptReal : MonoBehaviour
     public void DisableCollider()
     {
         attackCollider.enabled = true;
+        alreadyHit = false;
     }
 }
